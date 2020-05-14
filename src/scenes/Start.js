@@ -13,27 +13,27 @@ export default class Start extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(240, 320, 'background-menu');
-    this.add.image(240, 500, 'yellow-button')
+    this.add.image(200, 320, 'background-menu');
+    this.add.image(200, 500, 'yellow-button')
       .setInteractive()
       .on('pointerdown', () => this.startGame());
-    this.add.image(240, 550, 'green-button');
-    this.add.image(240, 600, 'blue-button');
+    this.add.image(200, 550, 'green-button');
+    this.add.image(200, 600, 'blue-button');
 
 
-    this.add.text(240, 500, 'Start', {
+    this.add.text(200, 500, 'Start', {
       fontSize: 38,
       color: 'rgb(0,0,0)',
     })
       .setOrigin(0.5);
 
-    this.add.text(240, 550, 'How to play', {
+    this.add.text(200, 550, 'How to play', {
       fontSize: 25,
       color: 'rgb(0,0,0)',
     })
       .setOrigin(0.5);
 
-    this.add.text(240, 600, 'Scores', {
+    this.add.text(200, 600, 'Scores', {
       fontSize: 25,
       color: 'rgb(0,0,0)',
     })

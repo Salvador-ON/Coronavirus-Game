@@ -32,7 +32,7 @@ export default class Game extends Phaser.Scene {
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
-    progressBox.fillRect(80, 270, 320, 50);
+    progressBox.fillRect(40, 270, 320, 50);
 
     const { width } = this.cameras.main;
     const { height } = this.cameras.main;
@@ -73,7 +73,7 @@ export default class Game extends Phaser.Scene {
       percentText.setText(`${parseInt(value * 100, 10)}%`);
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(80, 280, 300 * value, 30);
+      progressBar.fillRect(40, 280, 300 * value, 30);
     });
 
     this.load.on('fileprogress', (file) => {
@@ -103,7 +103,7 @@ export default class Game extends Phaser.Scene {
 
 
   create() {
-    this.add.image(240, 320, 'background')
+    this.add.image(200, 320, 'background')
       .setScrollFactor(1, 0);
 
     // remove this:
@@ -116,7 +116,7 @@ export default class Game extends Phaser.Scene {
 
     // then create 5 platforms from the group
     for (let i = 0; i < 5; i += 1) {
-      const x = Phaser.Math.Between(50, 450);
+      const x = Phaser.Math.Between(50, 370);
       const y = 190 * i;
 
       /** @type {Phaser.Physics.Arcade.Sprite} */
@@ -128,10 +128,10 @@ export default class Game extends Phaser.Scene {
       body.updateFromGameObject();
     }
 
-    this.platformB.create(240, 450, 'platform')
+    this.platformB.create(200, 450, 'platform')
       .setScale(1);
 
-    this.player = this.physics.add.sprite(240, 320, 'bot-stand')
+    this.player = this.physics.add.sprite(200, 320, 'bot-stand')
       .setScale(1);
 
     this.player.body.setSize(35, 125);
@@ -166,14 +166,14 @@ export default class Game extends Phaser.Scene {
     );
 
     const style = { color: '#000', fontSize: 24 };
-    this.virusCollectedText = this.add.text(240, 10, `Coronavirus Destroyed: ${window.virusCollected}`, style)
+    this.virusCollectedText = this.add.text(200, 10, `Coronavirus Destroyed: ${window.virusCollected}`, style)
       .setScrollFactor(0)
       .setOrigin(0.5, 0);
 
-    this.add.image(100, 600, 'leftButton').setScrollFactor(1, 0).setInteractive()
+    this.add.image(60, 600, 'leftButton').setScrollFactor(1, 0).setInteractive()
       .on('pointerdown', () => this.leftclick())
       .on('pointerup', () => this.clickUp());
-    this.add.image(380, 600, 'rightButton').setScrollFactor(1, 0).setInteractive()
+    this.add.image(340, 600, 'rightButton').setScrollFactor(1, 0).setInteractive()
       .on('pointerdown', () => this.rightclick())
       .on('pointerup', () => this.clickUp());
   }

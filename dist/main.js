@@ -146,7 +146,7 @@ class Game_Game extends phaser.Scene {
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
-    progressBox.fillRect(80, 270, 320, 50);
+    progressBox.fillRect(40, 270, 320, 50);
 
     const { width } = this.cameras.main;
     const { height } = this.cameras.main;
@@ -187,7 +187,7 @@ class Game_Game extends phaser.Scene {
       percentText.setText(`${parseInt(value * 100, 10)}%`);
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(80, 280, 300 * value, 30);
+      progressBar.fillRect(40, 280, 300 * value, 30);
     });
 
     this.load.on('fileprogress', (file) => {
@@ -217,7 +217,7 @@ class Game_Game extends phaser.Scene {
 
 
   create() {
-    this.add.image(240, 320, 'background')
+    this.add.image(200, 320, 'background')
       .setScrollFactor(1, 0);
 
     // remove this:
@@ -230,7 +230,7 @@ class Game_Game extends phaser.Scene {
 
     // then create 5 platforms from the group
     for (let i = 0; i < 5; i += 1) {
-      const x = phaser.Math.Between(50, 450);
+      const x = phaser.Math.Between(50, 370);
       const y = 190 * i;
 
       /** @type {Phaser.Physics.Arcade.Sprite} */
@@ -242,10 +242,10 @@ class Game_Game extends phaser.Scene {
       body.updateFromGameObject();
     }
 
-    this.platformB.create(240, 450, 'platform')
+    this.platformB.create(200, 450, 'platform')
       .setScale(1);
 
-    this.player = this.physics.add.sprite(240, 320, 'bot-stand')
+    this.player = this.physics.add.sprite(200, 320, 'bot-stand')
       .setScale(1);
 
     this.player.body.setSize(35, 125);
@@ -280,14 +280,14 @@ class Game_Game extends phaser.Scene {
     );
 
     const style = { color: '#000', fontSize: 24 };
-    this.virusCollectedText = this.add.text(240, 10, `Coronavirus Destroyed: ${window.virusCollected}`, style)
+    this.virusCollectedText = this.add.text(200, 10, `Coronavirus Destroyed: ${window.virusCollected}`, style)
       .setScrollFactor(0)
       .setOrigin(0.5, 0);
 
-    this.add.image(100, 600, 'leftButton').setScrollFactor(1, 0).setInteractive()
+    this.add.image(60, 600, 'leftButton').setScrollFactor(1, 0).setInteractive()
       .on('pointerdown', () => this.leftclick())
       .on('pointerup', () => this.clickUp());
-    this.add.image(380, 600, 'rightButton').setScrollFactor(1, 0).setInteractive()
+    this.add.image(340, 600, 'rightButton').setScrollFactor(1, 0).setInteractive()
       .on('pointerdown', () => this.rightclick())
       .on('pointerup', () => this.clickUp());
   }
@@ -470,7 +470,7 @@ class GameContinue_GameContinue extends phaser.Scene {
 
 
   create() {
-    this.add.image(240, 320, 'background')
+    this.add.image(200, 320, 'background')
       .setScrollFactor(1, 0);
 
     // remove this:
@@ -483,7 +483,7 @@ class GameContinue_GameContinue extends phaser.Scene {
 
     // then create 5 platforms from the group
     for (let i = 0; i < 5; i += 1) {
-      const x = phaser.Math.Between(50, 450);
+      const x = phaser.Math.Between(50, 370);
       const y = 190 * i;
 
       /** @type {Phaser.Physics.Arcade.Sprite} */
@@ -495,10 +495,10 @@ class GameContinue_GameContinue extends phaser.Scene {
       body.updateFromGameObject();
     }
 
-    this.platformB.create(240, 450, 'platform')
+    this.platformB.create(200, 450, 'platform')
       .setScale(1);
 
-    this.player = this.physics.add.sprite(240, 320, 'bot-stand')
+    this.player = this.physics.add.sprite(200, 320, 'bot-stand')
       .setScale(1);
 
     this.player.body.setSize(35, 125);
@@ -533,14 +533,14 @@ class GameContinue_GameContinue extends phaser.Scene {
     );
 
     const style = { color: '#000', fontSize: 24 };
-    this.virusCollectedText = this.add.text(240, 10, `Coronavirus Destroyed: ${window.virusCollected}`, style)
+    this.virusCollectedText = this.add.text(200, 10, `Coronavirus Destroyed: ${window.virusCollected}`, style)
       .setScrollFactor(0)
       .setOrigin(0.5, 0);
 
-    this.add.image(100, 600, 'leftButton').setScrollFactor(1, 0).setInteractive()
+    this.add.image(60, 600, 'leftButton').setScrollFactor(1, 0).setInteractive()
       .on('pointerdown', () => this.leftclick())
       .on('pointerup', () => this.clickUp());
-    this.add.image(380, 600, 'rightButton').setScrollFactor(1, 0).setInteractive()
+    this.add.image(340, 600, 'rightButton').setScrollFactor(1, 0).setInteractive()
       .on('pointerdown', () => this.rightclick())
       .on('pointerup', () => this.clickUp());
   }
@@ -706,27 +706,27 @@ class Start_Start extends phaser.Scene {
   }
 
   create() {
-    this.add.image(240, 320, 'background-menu');
-    this.add.image(240, 500, 'yellow-button')
+    this.add.image(200, 320, 'background-menu');
+    this.add.image(200, 500, 'yellow-button')
       .setInteractive()
       .on('pointerdown', () => this.startGame());
-    this.add.image(240, 550, 'green-button');
-    this.add.image(240, 600, 'blue-button');
+    this.add.image(200, 550, 'green-button');
+    this.add.image(200, 600, 'blue-button');
 
 
-    this.add.text(240, 500, 'Start', {
+    this.add.text(200, 500, 'Start', {
       fontSize: 38,
       color: 'rgb(0,0,0)',
     })
       .setOrigin(0.5);
 
-    this.add.text(240, 550, 'How to play', {
+    this.add.text(200, 550, 'How to play', {
       fontSize: 25,
       color: 'rgb(0,0,0)',
     })
       .setOrigin(0.5);
 
-    this.add.text(240, 600, 'Scores', {
+    this.add.text(200, 600, 'Scores', {
       fontSize: 25,
       color: 'rgb(0,0,0)',
     })
@@ -757,25 +757,35 @@ class GameOver_GameOver extends phaser.Scene {
   create() {
 
 
-    this.add.image(240, 320, 'background');
-    const gameboard = this.add.image(240, 320, 'block')
+    this.add.image(200, 320, 'background');
+    const gameboard = this.add.image(200, 320, 'block')
     gameboard.setScale(1);
 
-    this.add.text(240, 100, 'Game Over', { fontSize: 48, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-    this.add.text(240, 150, 'You Collected:', { fontSize: 33, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-    this.add.text(240, 190, `${window.score} Coronavirus`, { fontSize: 33, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-    this.add.text(240, 240, 'Type your name', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 100, 'Game Over', { fontSize: 48, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 150, 'You Destroyed:', { fontSize: 33, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 190, `${window.score} Coronavirus`, { fontSize: 33, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 240, 'Type your name', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
     let inputField = document.createElement("input");
     inputField.type = 'text';
     inputField.id = 'nameField';
     document.getElementById('gameCont').appendChild(inputField)
 
-    this.add.image(240, 550, 'yellow-button')
+    this.add.image(200, 350, 'green-button')
       .setInteractive()
       .on('pointerdown', () => this.startGame());
 
-    this.add.text(240, 550, 'Play Again', {
+    this.add.text(200, 350, 'Submit Score', {
+      fontSize: 26,
+      color: 'rgb(0,0,0)',
+    })
+      .setOrigin(0.5);
+
+    this.add.image(200, 550, 'yellow-button')
+      .setInteractive()
+      .on('pointerdown', () => this.startGame());
+
+    this.add.text(200, 550, 'Play Again', {
       fontSize: 28,
       color: 'rgb(0,0,0)',
     })
@@ -785,18 +795,18 @@ class GameOver_GameOver extends phaser.Scene {
       this.record = JSON.parse(localStorage.getItem('record'));
 
       if (parseInt(this.record) < window.score) {
-        this.add.text(240, 440, 'You Have', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-        this.add.text(240, 480, 'New High Score!!!', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+        this.add.text(200, 440, 'You Have', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+        this.add.text(200, 480, 'New High Score!!!', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
         localStorage.setItem('record', JSON.stringify(window.score))
       }
       else {
-        this.add.text(240, 440, 'Try Again', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-        this.add.text(240, 480, `Your High Score is: ${this.record}`, { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+        this.add.text(200, 440, 'Try Again', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+        this.add.text(200, 480, `Your High Score is: ${this.record}`, { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
       }
     }
     else {
-      this.add.text(240, 440, 'You Have', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-      this.add.text(240, 480, 'New High Score!!!', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+      this.add.text(200, 440, 'You Have', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+      this.add.text(200, 480, 'New High Score!!!', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
       localStorage.setItem('record', JSON.stringify(window.score))
     }
 
@@ -834,49 +844,49 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
 
   create() {
 
-    this.add.image(240, 320, 'background');
-    const gameboard = this.add.image(240, 320, 'block')
+    this.add.image(200, 320, 'background');
+    const gameboard = this.add.image(200, 320, 'block')
     gameboard.setScale(1);
 
-    this.add.text(240, 100, 'Fight Time', { fontSize: 30, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 100, 'Fight Time', { fontSize: 30, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
 
-    this.virusHealthText = this.add.text(240, 130, `Virus Health:${this.virusHealth}`, { color: '#000', fontSize: 20 }).setOrigin(0.5);
+    this.virusHealthText = this.add.text(200, 130, `Virus Health:${this.virusHealth}`, { color: '#000', fontSize: 20 }).setOrigin(0.5);
 
     this.robotHealthText = this.add.text(40, 10, `Robot Health:${window.robotHealth}`, { color: '#000', fontSize: 20 });
 
-    this.virusDamageMessage = this.add.text(240, 200, 'Your turn to attack', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.virusDamageMessage = this.add.text(200, 200, 'Your turn to attack', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
-    this.add.image(340, 310, 'virus').setScale(0.8);;
-    this.add.image(140, 310, 'bot-attack')
+    this.add.image(300, 310, 'virus').setScale(0.8);;
+    this.add.image(100, 310, 'bot-attack')
 
-    this.RobotDamageMessage = this.add.text(240, 460, '', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.RobotDamageMessage = this.add.text(200, 460, '', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
 
-    this.soapButton = this.add.image(130, 550, 'yellow-button')
+    this.soapButton = this.add.image(90, 550, 'yellow-button')
       .setScale(0.5)
       .setInteractive()
       .on('pointerdown', () => this.soapAttack());
 
-    this.soapText = this.add.text(130, 550, 'Soap', { fontSize: 20, color: 'rgb(0,0,0)', })
+    this.soapText = this.add.text(90, 550, 'Soap', { fontSize: 20, color: 'rgb(0,0,0)', })
       .setOrigin(0.5);
 
 
-    this.chlorineButton = this.add.image(240, 550, 'green-button')
+    this.chlorineButton = this.add.image(200, 550, 'green-button')
       .setScale(0.5)
       .setInteractive()
       .on('pointerdown', () => this.chlorineAttack());
 
-    this.chlorineText = this.add.text(240, 550, 'Chlorine', { fontSize: 20, color: 'rgb(0,0,0)', })
+    this.chlorineText = this.add.text(200, 550, 'Chlorine', { fontSize: 20, color: 'rgb(0,0,0)', })
       .setOrigin(0.5);
 
 
-    this.uvLightButton = this.add.image(350, 550, 'blue-button')
+    this.uvLightButton = this.add.image(310, 550, 'blue-button')
       .setScale(0.5)
       .setInteractive()
       .on('pointerdown', () => this.uvLightAttack());
 
-    this.uvLightText = this.add.text(350, 550, 'UV Light', { fontSize: 20, color: 'rgb(0,0,0)', })
+    this.uvLightText = this.add.text(310, 550, 'UV Light', { fontSize: 20, color: 'rgb(0,0,0)', })
       .setOrigin(0.5);
 
 
@@ -900,12 +910,12 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
       this.virusDamageMessage.text = `You defeat the virus`;
       this.RobotDamageMessage.text = '';
       this.collectVirus();
-      this.ContinueButton = this.add.image(240, 550, 'green-button')
+      this.ContinueButton = this.add.image(200, 550, 'green-button')
         .setScale(0.5)
         .setInteractive()
         .on('pointerdown', () => this.continueGame());
 
-      this.continueText = this.add.text(240, 550, 'Continue', { fontSize: 20, color: 'rgb(0,0,0)', })
+      this.continueText = this.add.text(200, 550, 'Continue', { fontSize: 20, color: 'rgb(0,0,0)', })
         .setOrigin(0.5);
     }
     else {
@@ -1029,7 +1039,7 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
 
 /* harmony default export */ var src = __webpack_exports__["default"] = (new phaser.Game({
   type: phaser.AUTO,
-  width: 480,
+  width: 400,
   height: 640,
   scene: [Start_Start, Game_Game, GameOver_GameOver, RpgPlayer_RpgPlayer, GameContinue_GameContinue],
   parent: 'gameCont',

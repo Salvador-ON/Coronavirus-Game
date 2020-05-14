@@ -18,49 +18,49 @@ export default class RpgPlayer extends Phaser.Scene {
 
   create() {
 
-    this.add.image(240, 320, 'background');
-    const gameboard = this.add.image(240, 320, 'block')
+    this.add.image(200, 320, 'background');
+    const gameboard = this.add.image(200, 320, 'block')
     gameboard.setScale(1);
 
-    this.add.text(240, 100, 'Fight Time', { fontSize: 30, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 100, 'Fight Time', { fontSize: 30, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
 
-    this.virusHealthText = this.add.text(240, 130, `Virus Health:${this.virusHealth}`, { color: '#000', fontSize: 20 }).setOrigin(0.5);
+    this.virusHealthText = this.add.text(200, 130, `Virus Health:${this.virusHealth}`, { color: '#000', fontSize: 20 }).setOrigin(0.5);
 
     this.robotHealthText = this.add.text(40, 10, `Robot Health:${window.robotHealth}`, { color: '#000', fontSize: 20 });
 
-    this.virusDamageMessage = this.add.text(240, 200, 'Your turn to attack', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.virusDamageMessage = this.add.text(200, 200, 'Your turn to attack', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
-    this.add.image(340, 310, 'virus').setScale(0.8);;
-    this.add.image(140, 310, 'bot-attack')
+    this.add.image(300, 310, 'virus').setScale(0.8);;
+    this.add.image(100, 310, 'bot-attack')
 
-    this.RobotDamageMessage = this.add.text(240, 460, '', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.RobotDamageMessage = this.add.text(200, 460, '', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
 
-    this.soapButton = this.add.image(130, 550, 'yellow-button')
+    this.soapButton = this.add.image(90, 550, 'yellow-button')
       .setScale(0.5)
       .setInteractive()
       .on('pointerdown', () => this.soapAttack());
 
-    this.soapText = this.add.text(130, 550, 'Soap', { fontSize: 20, color: 'rgb(0,0,0)', })
+    this.soapText = this.add.text(90, 550, 'Soap', { fontSize: 20, color: 'rgb(0,0,0)', })
       .setOrigin(0.5);
 
 
-    this.chlorineButton = this.add.image(240, 550, 'green-button')
+    this.chlorineButton = this.add.image(200, 550, 'green-button')
       .setScale(0.5)
       .setInteractive()
       .on('pointerdown', () => this.chlorineAttack());
 
-    this.chlorineText = this.add.text(240, 550, 'Chlorine', { fontSize: 20, color: 'rgb(0,0,0)', })
+    this.chlorineText = this.add.text(200, 550, 'Chlorine', { fontSize: 20, color: 'rgb(0,0,0)', })
       .setOrigin(0.5);
 
 
-    this.uvLightButton = this.add.image(350, 550, 'blue-button')
+    this.uvLightButton = this.add.image(310, 550, 'blue-button')
       .setScale(0.5)
       .setInteractive()
       .on('pointerdown', () => this.uvLightAttack());
 
-    this.uvLightText = this.add.text(350, 550, 'UV Light', { fontSize: 20, color: 'rgb(0,0,0)', })
+    this.uvLightText = this.add.text(310, 550, 'UV Light', { fontSize: 20, color: 'rgb(0,0,0)', })
       .setOrigin(0.5);
 
 
@@ -84,12 +84,12 @@ export default class RpgPlayer extends Phaser.Scene {
       this.virusDamageMessage.text = `You defeat the virus`;
       this.RobotDamageMessage.text = '';
       this.collectVirus();
-      this.ContinueButton = this.add.image(240, 550, 'green-button')
+      this.ContinueButton = this.add.image(200, 550, 'green-button')
         .setScale(0.5)
         .setInteractive()
         .on('pointerdown', () => this.continueGame());
 
-      this.continueText = this.add.text(240, 550, 'Continue', { fontSize: 20, color: 'rgb(0,0,0)', })
+      this.continueText = this.add.text(200, 550, 'Continue', { fontSize: 20, color: 'rgb(0,0,0)', })
         .setOrigin(0.5);
     }
     else {

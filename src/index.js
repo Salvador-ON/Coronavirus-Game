@@ -13,7 +13,7 @@ import RpgPlayer from './scenes/RpgPlayer';
 
 export default new Phaser.Game({
   type: Phaser.AUTO,
-  width: 480,
+  width: 400,
   height: 640,
   scene: [Start, Game, GameOver, RpgPlayer, GameContinue],
   parent: 'gameCont',
