@@ -1,0 +1,11 @@
+#gameCont {
+  min-height: 100vh;
+}
+
+#nameField {
+  position: absolute;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  top: 44vh;
+}
