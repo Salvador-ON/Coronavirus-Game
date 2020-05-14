@@ -2,6 +2,8 @@ import Phaser from './lib/phaser';
 
 import Game from './scenes/Game';
 
+import GameContinue from './scenes/GameContinue';
+
 import Start from './scenes/Start';
 
 import GameOver from './scenes/GameOver';
@@ -13,7 +15,7 @@ export default new Phaser.Game({
   type: Phaser.AUTO,
   width: 480,
   height: 640,
-  scene: [Start, Game, GameOver, RpgPlayer],
+  scene: [Start, Game, GameOver, RpgPlayer, GameContinue],
   parent: 'gameCont',
   physics: {
     default: 'arcade',
