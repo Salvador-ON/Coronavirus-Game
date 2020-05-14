@@ -6,6 +6,7 @@ export default class Game extends Phaser.Scene {
   init() {
     this.left = 0;
     this.right = 0;
+    window.robotHealth = 100;
     this.virusCollected = 0;
     this.virusDisplay = 0;
     this.virusCollectedText = this.add.text(240, 10, 'Coronavirus: 0', { color: '#000', fontSize: 24 });
@@ -93,6 +94,7 @@ export default class Game extends Phaser.Scene {
     this.load.image('platform', 'assets/platformIndustrial_008.png');
     this.load.image('bot-stand', 'assets/character_robot_cheer0.png');
     this.load.image('bot-jump', 'assets/character_robot_cheer1.png');
+    this.load.image('bot-attack', 'assets/character_robot_attack2.png');
     this.load.image('virus', 'assets/virus-small.png');
     this.load.audio('jump', 'assets/phaseJump1.ogg');
     this.load.image('leftButton', 'assets/yellow_sliderLeft.png');
@@ -264,6 +266,8 @@ export default class Game extends Phaser.Scene {
 
     const value = `Coronavirus: ${this.virusCollected}`;
     this.virusCollectedText.text = value;
+
+    this.scene.start('rpg-player');
   }
 
   /**

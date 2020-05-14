@@ -25,7 +25,7 @@ export default class GameOver extends Phaser.Scene {
     inputField.id = 'nameField';
     document.getElementById('gameCont').appendChild(inputField)
 
-    this.add.image(240, 550, 'start-button')
+    this.add.image(240, 550, 'yellow-button')
       .setInteractive()
       .on('pointerdown', () => this.startGame());
 
