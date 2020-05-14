@@ -32,40 +32,44 @@ export default class RpgPlayer extends Phaser.Scene {
 
     this.robotHealthText = this.add.text(40, 10, `Robot Health:${window.robotHealth}`, { color: '#000', fontSize: 20 });
 
-    this.add.image(340, 280, 'virus').setScale(0.8);;
-    this.add.image(140, 280, 'bot-attack')
+    this.virusDamageMessage = this.add.text(240, 200, 'Your turn to attack', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+
+    this.add.image(340, 310, 'virus').setScale(0.8);;
+    this.add.image(140, 310, 'bot-attack')
+
+    this.RobotDamageMessage = this.add.text(240, 460, '', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
 
-    this.add.image(130, 550, 'yellow-button')
+    this.soapButton = this.add.image(130, 550, 'yellow-button')
       .setScale(0.5)
       .setInteractive()
       .on('pointerdown', () => this.soapAttack());
 
-    this.add.text(130, 550, 'Soap', {
+    this.soapText = this.add.text(130, 550, 'Soap', {
       fontSize: 20,
       color: 'rgb(0,0,0)',
     })
       .setOrigin(0.5);
 
 
-    this.add.image(240, 550, 'green-button')
+    this.chlorineButton = this.add.image(240, 550, 'green-button')
       .setScale(0.5)
       .setInteractive()
       .on('pointerdown', () => this.chlorineAttack());
 
-    this.add.text(240, 550, 'Chlorine', {
+    this.chlorineText = this.add.text(240, 550, 'Chlorine', {
       fontSize: 20,
       color: 'rgb(0,0,0)',
     })
       .setOrigin(0.5);
 
 
-    this.add.image(350, 550, 'blue-button')
+    this.uvLightButton = this.add.image(350, 550, 'blue-button')
       .setScale(0.5)
       .setInteractive()
       .on('pointerdown', () => this.uvLightAttack());
 
-    this.add.text(350, 550, 'UV Light', {
+    this.uvLightText = this.add.text(350, 550, 'UV Light', {
       fontSize: 20,
       color: 'rgb(0,0,0)',
     })
@@ -79,18 +83,44 @@ export default class RpgPlayer extends Phaser.Scene {
   }
 
   soapAttack() {
+    this.soapButton.visible = false;
+    this.soapText.visible = false;
+    this.chlorineButton.visible = false;
+    this.chlorineText.visible = false;
+    this.uvLightButton.visible = false;
+    this.uvLightText.visible = false;
     this.virusHealth -= this.soap;
-    this.virusAttackOp();
+    this.RobotDamageMessage.text = '';
+    this.virusDamageMessage.text = `You made ${this.soap} points of damage`;
+    this.sleep(2000).then(() => { this.virusAttackOp(); });
+
+
   }
 
   chlorineAttack() {
-    this.virusHealth -= this.chlorine
-    this.virusAttackOp();
+    this.soapButton.visible = false;
+    this.soapText.visible = false;
+    this.chlorineButton.visible = false;
+    this.chlorineText.visible = false;
+    this.uvLightButton.visible = false;
+    this.uvLightText.visible = false;
+    this.virusHealth -= this.chlorine;
+    this.RobotDamageMessage.text = '';
+    this.virusDamageMessage.text = `You made ${this.chlorine} points of damage`;
+    this.sleep(2000).then(() => { this.virusAttackOp(); });
   }
 
   uvLightAttack() {
+    this.soapButton.visible = false;
+    this.soapText.visible = false;
+    this.chlorineButton.visible = false;
+    this.chlorineText.visible = false;
+    this.uvLightButton.visible = false;
+    this.uvLightText.visible = false;
     this.virusHealth -= this.uvLight;
-    this.virusAttackOp();
+    this.RobotDamageMessage.text = '';
+    this.virusDamageMessage.text = `You made ${this.uvLight} points of damage`;
+    this.sleep(2000).then(() => { this.virusAttackOp(); });
   }
 
   virusHealth() {
@@ -98,20 +128,32 @@ export default class RpgPlayer extends Phaser.Scene {
     this.virusHealthText.text = value;
   }
 
-  virusAttackOp(){
-    window.robotHealth -= this.virusAttack;;
-    
+  virusAttackOp() {
+    window.robotHealth -= this.virusAttack;
+    this.RobotDamageMessage.text = `You receive ${this.virusAttack} points of damage`;
+    this.virusDamageMessage.text = 'Your turn';
+    this.soapButton.visible = true;
+    this.soapText.visible = true;
+    this.chlorineButton.visible = true;
+    this.chlorineText.visible = true;
+    this.uvLightButton.visible = true;
+    this.uvLightText.visible = true;
+
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
 
 
   update() {
 
-    const valueVirus = `Health: ${this.virusHealth}`;
+    const valueVirus = `Virus Health: ${this.virusHealth}`;
     this.virusHealthText.text = valueVirus;
 
 
-    const valueRobot = `Health: ${window.robotHealth}`;
+    const valueRobot = `Robot Health: ${window.robotHealth}`;
     this.robotHealthText.text = valueRobot;
 
   }
