@@ -877,7 +877,7 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => this.chlorineAttack());
 
-    this.chlorineText = this.add.text(200, 550, 'Chlorine', { fontSize: 20, color: 'rgb(0,0,0)', })
+    this.chlorineText = this.add.text(200, 550, 'Alcohol', { fontSize: 20, color: 'rgb(0,0,0)', })
       .setOrigin(0.5);
 
 
