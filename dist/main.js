@@ -891,7 +891,62 @@ class Start_Start extends phaser.Scene {
   }
 }
 
+// CONCATENATED MODULE: ./src/game/Score.js
+class Score {
+
+  static initBase(){
+    firebase.initializeApp({
+      apiKey: 'AIzaSyBZ07ZYBN1nQiUiNe7cuUrFJy327wtBi3s',
+      authDomain: 'AUTHDOMAIN',
+      projectId: 'coronavirus-game-95a5f',
+    });
+    
+    // Initialize Firebase
+    window.db = firebase.firestore();
+  
+  }
+  
+  static saveUser(playerName, playerScore){
+    console.log("hey saved")
+    var name = playerName
+    var score = playerScore
+    window.db.collection("users").add({
+      first: name,
+      score: score,
+    })
+      .then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function (error) {
+        console.error("Error adding document: ", error);
+      });
+  
+  }
+  
+  static readScore(){
+  
+    window.db.collection("users").orderBy("score", "desc").limit(3)
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(`${doc.data().first} => ${doc.data().score}`);
+        });
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
+  
+  }
+
+
+}
+
+
+/* harmony default export */ var game_Score = (Score);
+
 // CONCATENATED MODULE: ./src/scenes/GameOver.js
+
 
 
 class GameOver_GameOver extends phaser.Scene {
@@ -910,14 +965,19 @@ class GameOver_GameOver extends phaser.Scene {
     this.add.text(200, 190, `${window.virusCollected} Coronavirus`, { fontSize: 33, color: 'rgb(0,0,0)' }).setOrigin(0.5);
     this.add.text(200, 240, 'Type your name', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
+    this.validationLabel = this.add.text(200, 400, '', { fontSize: 15, color: 'rgb(255,0,0)' }).setOrigin(0.5);
+    
+
     const inputField = document.createElement('input');
     inputField.type = 'text';
     inputField.id = 'nameField';
+    inputField.className = 'rounded'
+    inputField.placeholder = 'Min 3 & Max 10 Letters'
     document.getElementById('gameCont').appendChild(inputField);
 
     this.add.image(200, 350, 'green-button')
       .setInteractive()
-      .on('pointerdown', () => this.startGame());
+      .on('pointerdown', () => this.submitName());
 
     this.add.text(200, 350, 'Submit Score', {
       fontSize: 26,
@@ -935,6 +995,10 @@ class GameOver_GameOver extends phaser.Scene {
     })
       .setOrigin(0.5);
 
+    this.scoreLocal()
+  }
+
+  scoreLocal(){
     if (localStorage.getItem('record') !== null) {
       this.record = JSON.parse(localStorage.getItem('record'));
 
@@ -952,9 +1016,6 @@ class GameOver_GameOver extends phaser.Scene {
       localStorage.setItem('record', JSON.stringify(window.score));
     }
 
-    // this.input.keyboard.once('keydown_SPACE', () => {
-    //   this.startGame();
-    // });
   }
 
   startGame() {
@@ -962,14 +1023,80 @@ class GameOver_GameOver extends phaser.Scene {
     this.scene.start('game');
   }
 
-  static submitResult() {
+  scoreBoard() {
+    document.getElementById('nameField').remove();
+    this.scene.start('score-board');
+  }
+
+
+  submitName(){
+    this.name = document.getElementById('nameField').value;
+    if(this.validateData(this.name.length)){
+        console.log('correct');
+        game_Score.initBase();
+        game_Score.saveUser(this.name, window.virusCollected);
+        this.scoreBoard();
+    }
+    else{
+      this.validationLabel.text = 'Invalid input';
+    }
 
   }
 
 
-  static validateData() {
+  validateData(name) {
+    this.nameLength = name;
+    if (this.nameLength >= 3 && this.nameLength < 10){
+      return true;
+    }
+    else{
 
+      return false;
+
+    }
   }
+
+
+}
+
+// CONCATENATED MODULE: ./src/scenes/ScoreBoard.js
+
+
+
+class ScoreBoard_ScoreBoard extends phaser.Scene {
+  constructor() {
+    super('score-board');
+  }
+
+
+  create() {
+    this.add.image(200, 320, 'background');
+    const gameboard = this.add.image(200, 320, 'block');
+    gameboard.setScale(1);
+
+    this.add.text(200, 100, 'ScoreBoard', { fontSize: 48, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    
+
+    this.add.image(200, 550, 'yellow-button')
+      .setInteractive()
+      .on('pointerdown', () => this.startGame());
+
+    this.add.text(200, 550, 'Play Again', {
+      fontSize: 28,
+      color: 'rgb(0,0,0)',
+    })
+      .setOrigin(0.5);
+
+ 
+  }
+
+  startGame() {
+    this.scene.start('game');
+  }
+
+  
+
+
 }
 
 // CONCATENATED MODULE: ./src/scenes/RpgPlayer.js
@@ -1003,8 +1130,8 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
 
     this.virusDamageMessage = this.add.text(200, 200, 'Your turn to attack', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
-    this.add.image(300, 310, 'virus').setScale(0.8);
-    this.add.image(100, 310, 'bot-attack');
+    this.virusImage = this.add.image(300, 310, 'virus').setScale(0.8);
+    this.botImage = this.add.image(100, 310, 'bot-attack');
 
     this.RobotDamageMessage = this.add.text(200, 460, '', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
@@ -1054,6 +1181,8 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
       this.virusDamageMessage.text = 'You defeated the virus';
       this.RobotDamageMessage.text = '';
       RpgPlayer_RpgPlayer.collectVirus();
+      this.virusImage.visible = false
+      this.botImage.x = 200;
       this.ContinueButton = this.add.image(200, 550, 'green-button')
         .setScale(0.5)
         .setInteractive()
@@ -1124,6 +1253,9 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
       this.virusDamageMessage.text = 'The virus defeated you';
       this.RobotDamageMessage.text = '';
 
+      this.virusImage.x = 200
+      this.botImage.visible = false;
+
       this.ContinueButton = this.add.image(200, 550, 'green-button')
         .setScale(0.7)
         .setInteractive()
@@ -1132,7 +1264,7 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
       this.continueText = this.add.text(200, 550, 'Game Over', { fontSize: 18, color: 'rgb(0,0,0)' })
         .setOrigin(0.5);
     } else {
-      this.RobotDamageMessage.text = `You received ${this.virusAttack} points of damage`;
+      this.RobotDamageMessage.text = `Received ${this.virusAttack} points of damage`;
       this.virusDamageMessage.text = 'Your turn';
       this.enableButtons();
     }
@@ -1198,11 +1330,13 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
 
 
 
+
+
 /* harmony default export */ var src = __webpack_exports__["default"] = (new phaser.Game({
   type: phaser.AUTO,
   width: 400,
   height: 640,
-  scene: [Start_Start, Game_Game, GameOver_GameOver, RpgPlayer_RpgPlayer, GameContinue_GameContinue],
+  scene: [Start_Start, Game_Game, GameOver_GameOver, RpgPlayer_RpgPlayer, GameContinue_GameContinue, ScoreBoard_ScoreBoard] ,
   parent: 'gameCont',
   physics: {
     default: 'arcade',

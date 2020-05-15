@@ -1,4 +1,5 @@
 import Phaser from '../lib/phaser';
+import Score from '../game/Score';
 
 export default class GameOver extends Phaser.Scene {
   constructor() {
@@ -16,14 +17,19 @@ export default class GameOver extends Phaser.Scene {
     this.add.text(200, 190, `${window.virusCollected} Coronavirus`, { fontSize: 33, color: 'rgb(0,0,0)' }).setOrigin(0.5);
     this.add.text(200, 240, 'Type your name', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
+    this.validationLabel = this.add.text(200, 400, '', { fontSize: 15, color: 'rgb(255,0,0)' }).setOrigin(0.5);
+    
+
     const inputField = document.createElement('input');
     inputField.type = 'text';
     inputField.id = 'nameField';
+    inputField.className = 'rounded'
+    inputField.placeholder = 'Min 3 & Max 10 Letters'
     document.getElementById('gameCont').appendChild(inputField);
 
     this.add.image(200, 350, 'green-button')
       .setInteractive()
-      .on('pointerdown', () => this.startGame());
+      .on('pointerdown', () => this.submitName());
 
     this.add.text(200, 350, 'Submit Score', {
       fontSize: 26,
@@ -41,6 +47,10 @@ export default class GameOver extends Phaser.Scene {
     })
       .setOrigin(0.5);
 
+    this.scoreLocal()
+  }
+
+  scoreLocal(){
     if (localStorage.getItem('record') !== null) {
       this.record = JSON.parse(localStorage.getItem('record'));
 
@@ -58,9 +68,6 @@ export default class GameOver extends Phaser.Scene {
       localStorage.setItem('record', JSON.stringify(window.score));
     }
 
-    // this.input.keyboard.once('keydown_SPACE', () => {
-    //   this.startGame();
-    // });
   }
 
   startGame() {
@@ -68,12 +75,38 @@ export default class GameOver extends Phaser.Scene {
     this.scene.start('game');
   }
 
-  static submitResult() {
+  scoreBoard() {
+    document.getElementById('nameField').remove();
+    this.scene.start('score-board');
+  }
+
+
+  submitName(){
+    this.name = document.getElementById('nameField').value;
+    if(this.validateData(this.name.length)){
+        console.log('correct');
+        Score.initBase();
+        Score.saveUser(this.name, window.virusCollected);
+        this.scoreBoard();
+    }
+    else{
+      this.validationLabel.text = 'Invalid input';
+    }
 
   }
 
 
-  static validateData() {
+  validateData(name) {
+    this.nameLength = name;
+    if (this.nameLength >= 3 && this.nameLength < 10){
+      return true;
+    }
+    else{
 
+      return false;
+
+    }
   }
+
+
 }

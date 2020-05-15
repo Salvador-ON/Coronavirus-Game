@@ -28,8 +28,8 @@ export default class RpgPlayer extends Phaser.Scene {
 
     this.virusDamageMessage = this.add.text(200, 200, 'Your turn to attack', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
-    this.add.image(300, 310, 'virus').setScale(0.8);
-    this.add.image(100, 310, 'bot-attack');
+    this.virusImage = this.add.image(300, 310, 'virus').setScale(0.8);
+    this.botImage = this.add.image(100, 310, 'bot-attack');
 
     this.RobotDamageMessage = this.add.text(200, 460, '', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
@@ -79,6 +79,8 @@ export default class RpgPlayer extends Phaser.Scene {
       this.virusDamageMessage.text = 'You defeated the virus';
       this.RobotDamageMessage.text = '';
       RpgPlayer.collectVirus();
+      this.virusImage.visible = false
+      this.botImage.x = 200;
       this.ContinueButton = this.add.image(200, 550, 'green-button')
         .setScale(0.5)
         .setInteractive()
@@ -149,6 +151,9 @@ export default class RpgPlayer extends Phaser.Scene {
       this.virusDamageMessage.text = 'The virus defeated you';
       this.RobotDamageMessage.text = '';
 
+      this.virusImage.x = 200
+      this.botImage.visible = false;
+
       this.ContinueButton = this.add.image(200, 550, 'green-button')
         .setScale(0.7)
         .setInteractive()
@@ -157,7 +162,7 @@ export default class RpgPlayer extends Phaser.Scene {
       this.continueText = this.add.text(200, 550, 'Game Over', { fontSize: 18, color: 'rgb(0,0,0)' })
         .setOrigin(0.5);
     } else {
-      this.RobotDamageMessage.text = `You received ${this.virusAttack} points of damage`;
+      this.RobotDamageMessage.text = `Received ${this.virusAttack} points of damage`;
       this.virusDamageMessage.text = 'Your turn';
       this.enableButtons();
     }
