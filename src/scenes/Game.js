@@ -6,7 +6,7 @@ export default class Game extends Phaser.Scene {
   init() {
     this.left = 0;
     this.right = 0;
-    window.robotHealth = 100;
+    window.robotHealth = 10;
     window.virusCollected = 0;
     this.virusDisplay = 0;
     /** @type {Phaser.Types.Input.Keyboard.CursorKeys} */
@@ -170,6 +170,10 @@ export default class Game extends Phaser.Scene {
       .setScrollFactor(0)
       .setOrigin(0.5, 0);
 
+    this.robotHeadText = this.add.text(200, 586, `Robot Health: ${window.robotHealth}`, style)
+      .setScrollFactor(0)
+      .setOrigin(0.5, 0);
+
     this.add.image(60, 600, 'leftButton').setScrollFactor(1, 0).setInteractive()
       .on('pointerdown', () => this.leftclick())
       .on('pointerup', () => this.clickUp());
@@ -189,7 +193,7 @@ export default class Game extends Phaser.Scene {
 
         this.virusDisplay += 1;
 
-        if ((this.virusDisplay % 3) === 0) {
+        if ((this.virusDisplay % 17) === 0) {
           this.addVirusAbove(platform);
         }
       }
@@ -228,7 +232,6 @@ export default class Game extends Phaser.Scene {
 
     const bottomPlatform = this.findBottomMostPlatform();
     if (this.player.y > bottomPlatform.y + 200) {
-      window.score = window.virusCollected
       this.scene.start('game-over');
     }
   }
@@ -261,8 +264,9 @@ export default class Game extends Phaser.Scene {
 
     // window.virusCollected += 1;
 
-    const value = `Coronavirus Destroyed: ${window.virusCollected}`;
-    this.virusCollectedText.text = value;
+    this.virusCollectedText.text = `Coronavirus Destroyed: ${window.virusCollected}`;;
+
+    this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
 
     this.scene.start('rpg-player');
   }

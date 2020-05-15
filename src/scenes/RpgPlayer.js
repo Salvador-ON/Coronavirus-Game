@@ -6,7 +6,7 @@ export default class RpgPlayer extends Phaser.Scene {
   }
 
   init() {
-    this.virusHealth = Math.floor(Math.random() * 10) + 1;
+    this.virusHealth = Math.floor(Math.random() * 7) + 3;
     this.virusAttack = Math.floor(Math.random() * 9) + 2;
     this.soap = Math.floor(Math.random() * 5) + 2;
     this.chlorine = Math.floor(Math.random() * 5) + 2;
@@ -81,7 +81,7 @@ export default class RpgPlayer extends Phaser.Scene {
 
   playerWin(points) {
     if (this.defeatVirus()) {
-      this.virusDamageMessage.text = `You defeat the virus`;
+      this.virusDamageMessage.text = `You defeated the virus`;
       this.RobotDamageMessage.text = '';
       this.collectVirus();
       this.ContinueButton = this.add.image(200, 550, 'green-button')
@@ -147,13 +147,37 @@ export default class RpgPlayer extends Phaser.Scene {
 
   virusAttackOp() {
     this.robotHealthSubs(this.virusAttack);
-    this.RobotDamageMessage.text = `You receive ${this.virusAttack} points of damage`;
-    this.virusDamageMessage.text = 'Your turn';
-    this.enableButtons();
+    this.playerloose();
+    
+  }
+
+  playerloose() {
+    if (this.gameOver()) {
+      this.virusDamageMessage.text = `The virus defeated you`;
+      this.RobotDamageMessage.text = '';
+
+      this.ContinueButton = this.add.image(200, 550, 'green-button')
+        .setScale(0.7)
+        .setInteractive()
+        .on('pointerdown', () => this.gameOverScreen());
+
+      this.continueText = this.add.text(200, 550, 'Game Over', { fontSize: 18, color: 'rgb(0,0,0)', })
+        .setOrigin(0.5);
+    }
+
+    else {
+      this.RobotDamageMessage.text = `You received ${this.virusAttack} points of damage`;
+      this.virusDamageMessage.text = 'Your turn';
+      this.enableButtons();
+    }
   }
 
   robotHealthSubs(value) {
     window.robotHealth -= value;
+
+    if (window.robotHealth < 0) {
+      window.robotHealth = 0;
+    }
   }
 
   sleep(ms) {
@@ -194,5 +218,10 @@ export default class RpgPlayer extends Phaser.Scene {
   continueGame() {
     this.scene.start('game-continue');
   }
+
+  gameOverScreen(){
+    this.scene.start('game-over');
+  }
+
 
 }

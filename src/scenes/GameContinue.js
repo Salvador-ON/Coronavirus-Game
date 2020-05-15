@@ -98,6 +98,10 @@ export default class GameContinue extends Phaser.Scene {
       .setScrollFactor(0)
       .setOrigin(0.5, 0);
 
+    this.robotHeadText = this.add.text(200, 586, `Robot Health: ${window.robotHealth}`, style)
+      .setScrollFactor(0)
+      .setOrigin(0.5, 0);
+
     this.add.image(60, 600, 'leftButton').setScrollFactor(1, 0).setInteractive()
       .on('pointerdown', () => this.leftclick())
       .on('pointerup', () => this.clickUp());
@@ -117,7 +121,7 @@ export default class GameContinue extends Phaser.Scene {
 
         this.virusDisplay += 1;
 
-        if ((this.virusDisplay % 3) === 0) {
+        if ((this.virusDisplay % 17) === 0) {
           this.addVirusAbove(platform);
         }
       }
@@ -156,7 +160,6 @@ export default class GameContinue extends Phaser.Scene {
 
     const bottomPlatform = this.findBottomMostPlatform();
     if (this.player.y > bottomPlatform.y + 200) {
-      window.score = window.virusCollected
       this.scene.start('game-over');
     }
   }
@@ -189,9 +192,9 @@ export default class GameContinue extends Phaser.Scene {
 
     // window.virusCollected += 1;
 
-    const value = `Coronavirus: ${window.virusCollected}`;
+    this.virusCollectedText.text = `Coronavirus: ${window.virusCollected}`;
 
-    this.virusCollectedText.text = value;
+    this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
 
     this.scene.start('rpg-player');
   }
