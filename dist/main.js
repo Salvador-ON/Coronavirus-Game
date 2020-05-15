@@ -94,6 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./src/lib/phaser.js
 /* harmony default export */ var phaser = (window.Phaser);
+
 // CONCATENATED MODULE: ./src/game/Virus.js
 
 
@@ -297,7 +298,7 @@ class Game_Game extends phaser.Scene {
   }
 
   update() {
-    this.platforms.children.iterate(child => {
+    this.platforms.children.iterate((child) => {
       /** @type {Phaser.Physics.Arcade.Sprite} */
       const platform = child;
       const { scrollY } = this.cameras.main;
@@ -358,9 +359,9 @@ class Game_Game extends phaser.Scene {
     const halfWidth = sprite.displayWidth * 0.5;
     const gameWidth = this.scale.width;
     if (sprite.x < -halfWidth) {
-      sprite.x = gameWidth + halfWidth;
+      sprite.x = gameWidth + halfWidth; // eslint-disable-line no-param-reassign
     } else if (sprite.x > gameWidth + halfWidth) {
-      sprite.x = -halfWidth;
+      sprite.x = -halfWidth; // eslint-disable-line no-param-reassign
     }
   }
 
@@ -378,7 +379,7 @@ class Game_Game extends phaser.Scene {
 
     // window.virusCollected += 1;
 
-    this.virusCollectedText.text = `Coronavirus Destroyed: ${window.virusCollected}`;;
+    this.virusCollectedText.text = `Coronavirus Destroyed: ${window.virusCollected}`;
 
     this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
 
@@ -440,6 +441,7 @@ class Game_Game extends phaser.Scene {
     this.right = 0;
   }
 }
+
 // CONCATENATED MODULE: ./src/scenes/GameContinue.js
 
 
@@ -554,7 +556,7 @@ class GameContinue_GameContinue extends phaser.Scene {
   }
 
   update() {
-    this.platforms.children.iterate(child => {
+    this.platforms.children.iterate((child) => {
       /** @type {Phaser.Physics.Arcade.Sprite} */
       const platform = child;
       const { scrollY } = this.cameras.main;
@@ -615,9 +617,9 @@ class GameContinue_GameContinue extends phaser.Scene {
     const halfWidth = sprite.displayWidth * 0.5;
     const gameWidth = this.scale.width;
     if (sprite.x < -halfWidth) {
-      sprite.x = gameWidth + halfWidth;
+      sprite.x = gameWidth + halfWidth; // eslint-disable-line no-param-reassign
     } else if (sprite.x > gameWidth + halfWidth) {
-      sprite.x = -halfWidth;
+      sprite.x = -halfWidth; // eslint-disable-line no-param-reassign
     }
   }
 
@@ -697,6 +699,7 @@ class GameContinue_GameContinue extends phaser.Scene {
     this.right = 0;
   }
 }
+
 // CONCATENATED MODULE: ./src/scenes/Start.js
 
 
@@ -750,6 +753,7 @@ class Start_Start extends phaser.Scene {
     this.scene.start('game');
   }
 }
+
 // CONCATENATED MODULE: ./src/scenes/GameOver.js
 
 
@@ -759,13 +763,9 @@ class GameOver_GameOver extends phaser.Scene {
   }
 
 
-
-
   create() {
-
-
     this.add.image(200, 320, 'background');
-    const gameboard = this.add.image(200, 320, 'block')
+    const gameboard = this.add.image(200, 320, 'block');
     gameboard.setScale(1);
 
     this.add.text(200, 100, 'Game Over', { fontSize: 48, color: 'rgb(0,0,0)' }).setOrigin(0.5);
@@ -773,10 +773,10 @@ class GameOver_GameOver extends phaser.Scene {
     this.add.text(200, 190, `${window.virusCollected} Coronavirus`, { fontSize: 33, color: 'rgb(0,0,0)' }).setOrigin(0.5);
     this.add.text(200, 240, 'Type your name', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
-    let inputField = document.createElement("input");
+    const inputField = document.createElement('input');
     inputField.type = 'text';
     inputField.id = 'nameField';
-    document.getElementById('gameCont').appendChild(inputField)
+    document.getElementById('gameCont').appendChild(inputField);
 
     this.add.image(200, 350, 'green-button')
       .setInteractive()
@@ -801,20 +801,18 @@ class GameOver_GameOver extends phaser.Scene {
     if (localStorage.getItem('record') !== null) {
       this.record = JSON.parse(localStorage.getItem('record'));
 
-      if (parseInt(this.record) < window.score) {
+      if (parseInt(this.record, 10) < window.score) {
         this.add.text(200, 440, 'You Have', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
         this.add.text(200, 480, 'New High Score!!!', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-        localStorage.setItem('record', JSON.stringify(window.score))
-      }
-      else {
+        localStorage.setItem('record', JSON.stringify(window.score));
+      } else {
         this.add.text(200, 440, 'Try Again', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
         this.add.text(200, 480, `Your High Score is: ${this.record}`, { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
       }
-    }
-    else {
+    } else {
       this.add.text(200, 440, 'You Have', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
       this.add.text(200, 480, 'New High Score!!!', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-      localStorage.setItem('record', JSON.stringify(window.score))
+      localStorage.setItem('record', JSON.stringify(window.score));
     }
 
     // this.input.keyboard.once('keydown_SPACE', () => {
@@ -827,15 +825,14 @@ class GameOver_GameOver extends phaser.Scene {
     this.scene.start('game');
   }
 
-  submitResult(){
+  static submitResult() {
 
   }
 
 
-  validateData(){
-    
-  }
+  static validateData() {
 
+  }
 }
 
 // CONCATENATED MODULE: ./src/scenes/RpgPlayer.js
@@ -855,12 +852,9 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
   }
 
 
-
-
   create() {
-
     this.add.image(200, 320, 'background');
-    const gameboard = this.add.image(200, 320, 'block')
+    const gameboard = this.add.image(200, 320, 'block');
     gameboard.setScale(1);
 
     this.add.text(200, 100, 'Fight Time', { fontSize: 30, color: 'rgb(0,0,0)' }).setOrigin(0.5);
@@ -872,8 +866,8 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
 
     this.virusDamageMessage = this.add.text(200, 200, 'Your turn to attack', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
-    this.add.image(300, 310, 'virus').setScale(0.8);;
-    this.add.image(100, 310, 'bot-attack')
+    this.add.image(300, 310, 'virus').setScale(0.8);
+    this.add.image(100, 310, 'bot-attack');
 
     this.RobotDamageMessage = this.add.text(200, 460, '', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
@@ -883,7 +877,7 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => this.soapAttack());
 
-    this.soapText = this.add.text(90, 550, 'Soap', { fontSize: 20, color: 'rgb(0,0,0)', })
+    this.soapText = this.add.text(90, 550, 'Soap', { fontSize: 20, color: 'rgb(0,0,0)' })
       .setOrigin(0.5);
 
 
@@ -892,7 +886,7 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => this.chlorineAttack());
 
-    this.chlorineText = this.add.text(200, 550, 'Alcohol', { fontSize: 20, color: 'rgb(0,0,0)', })
+    this.chlorineText = this.add.text(200, 550, 'Alcohol', { fontSize: 20, color: 'rgb(0,0,0)' })
       .setOrigin(0.5);
 
 
@@ -901,10 +895,8 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => this.uvLightAttack());
 
-    this.uvLightText = this.add.text(310, 550, 'UV Light', { fontSize: 20, color: 'rgb(0,0,0)', })
+    this.uvLightText = this.add.text(310, 550, 'UV Light', { fontSize: 20, color: 'rgb(0,0,0)' })
       .setOrigin(0.5);
-
-
   }
 
   startGame() {
@@ -922,45 +914,44 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
 
   playerWin(points) {
     if (this.defeatVirus()) {
-      this.virusDamageMessage.text = `You defeated the virus`;
+      this.virusDamageMessage.text = 'You defeated the virus';
       this.RobotDamageMessage.text = '';
-      this.collectVirus();
+      RpgPlayer_RpgPlayer.collectVirus();
       this.ContinueButton = this.add.image(200, 550, 'green-button')
         .setScale(0.5)
         .setInteractive()
         .on('pointerdown', () => this.continueGame());
 
-      this.continueText = this.add.text(200, 550, 'Continue', { fontSize: 20, color: 'rgb(0,0,0)', })
+      this.continueText = this.add.text(200, 550, 'Continue', { fontSize: 20, color: 'rgb(0,0,0)' })
         .setOrigin(0.5);
-    }
-    else {
+    } else {
       this.RobotDamageMessage.text = '';
       this.virusDamageMessage.text = `You made ${points} points of damage`;
-      this.sleep(2000).then(() => { this.virusAttackOp(); });
+      RpgPlayer_RpgPlayer.sleep(2000).then(() => { this.virusAttackOp(); });
     }
   }
 
-  collectVirus() {
+  static collectVirus() {
     window.virusCollected += 1;
   }
 
   soapAttack() {
-    this.disableButtons()
+    this.disableButtons();
     this.virusHealthSubs(this.soap);
     this.playerWin(this.soap);
   }
 
 
   chlorineAttack() {
-    this.disableButtons()
+    this.disableButtons();
     this.virusHealthSubs(this.chlorine);
     this.playerWin(this.chlorine);
   }
 
   uvLightAttack() {
-    this.disableButtons()
+    this.disableButtons();
     this.virusHealthSubs(this.uvLight);
-    this.playerWin(this.uvLight)
+    this.playerWin(this.uvLight);
   }
 
   disableButtons() {
@@ -987,14 +978,13 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
   }
 
   virusAttackOp() {
-    this.robotHealthSubs(this.virusAttack);
+    RpgPlayer_RpgPlayer.robotHealthSubs(this.virusAttack);
     this.playerloose();
-    
   }
 
   playerloose() {
-    if (this.gameOver()) {
-      this.virusDamageMessage.text = `The virus defeated you`;
+    if (RpgPlayer_RpgPlayer.gameOver()) {
+      this.virusDamageMessage.text = 'The virus defeated you';
       this.RobotDamageMessage.text = '';
 
       this.ContinueButton = this.add.image(200, 550, 'green-button')
@@ -1002,18 +992,16 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
         .setInteractive()
         .on('pointerdown', () => this.gameOverScreen());
 
-      this.continueText = this.add.text(200, 550, 'Game Over', { fontSize: 18, color: 'rgb(0,0,0)', })
+      this.continueText = this.add.text(200, 550, 'Game Over', { fontSize: 18, color: 'rgb(0,0,0)' })
         .setOrigin(0.5);
-    }
-
-    else {
+    } else {
       this.RobotDamageMessage.text = `You received ${this.virusAttack} points of damage`;
       this.virusDamageMessage.text = 'Your turn';
       this.enableButtons();
     }
   }
 
-  robotHealthSubs(value) {
+  static robotHealthSubs(value) {
     window.robotHealth -= value;
 
     if (window.robotHealth < 0) {
@@ -1021,50 +1009,42 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
     }
   }
 
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  static sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   defeatVirus() {
     if (this.virusHealth <= 0) {
-      return true
+      return true;
     }
-    else {
-      return false
-    }
+
+    return false;
   }
 
-  gameOver() {
+  static gameOver() {
     if (window.robotHealth <= 0) {
-      return true
+      return true;
     }
-    else {
-      return false
-    }
+
+    return false;
   }
 
   update() {
-
     const valueVirus = `Virus Health: ${this.virusHealth}`;
     this.virusHealthText.text = valueVirus;
 
 
     const valueRobot = `Robot Health: ${window.robotHealth}`;
     this.robotHealthText.text = valueRobot;
-
-
-
   }
 
   continueGame() {
     this.scene.start('game-continue');
   }
 
-  gameOverScreen(){
+  gameOverScreen() {
     this.scene.start('game-over');
   }
-
-
 }
 
 // CONCATENATED MODULE: ./src/index.js

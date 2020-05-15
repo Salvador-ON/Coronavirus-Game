@@ -14,12 +14,9 @@ export default class RpgPlayer extends Phaser.Scene {
   }
 
 
-
-
   create() {
-
     this.add.image(200, 320, 'background');
-    const gameboard = this.add.image(200, 320, 'block')
+    const gameboard = this.add.image(200, 320, 'block');
     gameboard.setScale(1);
 
     this.add.text(200, 100, 'Fight Time', { fontSize: 30, color: 'rgb(0,0,0)' }).setOrigin(0.5);
@@ -31,8 +28,8 @@ export default class RpgPlayer extends Phaser.Scene {
 
     this.virusDamageMessage = this.add.text(200, 200, 'Your turn to attack', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
-    this.add.image(300, 310, 'virus').setScale(0.8);;
-    this.add.image(100, 310, 'bot-attack')
+    this.add.image(300, 310, 'virus').setScale(0.8);
+    this.add.image(100, 310, 'bot-attack');
 
     this.RobotDamageMessage = this.add.text(200, 460, '', { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
@@ -42,7 +39,7 @@ export default class RpgPlayer extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => this.soapAttack());
 
-    this.soapText = this.add.text(90, 550, 'Soap', { fontSize: 20, color: 'rgb(0,0,0)', })
+    this.soapText = this.add.text(90, 550, 'Soap', { fontSize: 20, color: 'rgb(0,0,0)' })
       .setOrigin(0.5);
 
 
@@ -51,7 +48,7 @@ export default class RpgPlayer extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => this.chlorineAttack());
 
-    this.chlorineText = this.add.text(200, 550, 'Alcohol', { fontSize: 20, color: 'rgb(0,0,0)', })
+    this.chlorineText = this.add.text(200, 550, 'Alcohol', { fontSize: 20, color: 'rgb(0,0,0)' })
       .setOrigin(0.5);
 
 
@@ -60,10 +57,8 @@ export default class RpgPlayer extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => this.uvLightAttack());
 
-    this.uvLightText = this.add.text(310, 550, 'UV Light', { fontSize: 20, color: 'rgb(0,0,0)', })
+    this.uvLightText = this.add.text(310, 550, 'UV Light', { fontSize: 20, color: 'rgb(0,0,0)' })
       .setOrigin(0.5);
-
-
   }
 
   startGame() {
@@ -81,45 +76,44 @@ export default class RpgPlayer extends Phaser.Scene {
 
   playerWin(points) {
     if (this.defeatVirus()) {
-      this.virusDamageMessage.text = `You defeated the virus`;
+      this.virusDamageMessage.text = 'You defeated the virus';
       this.RobotDamageMessage.text = '';
-      this.collectVirus();
+      RpgPlayer.collectVirus();
       this.ContinueButton = this.add.image(200, 550, 'green-button')
         .setScale(0.5)
         .setInteractive()
         .on('pointerdown', () => this.continueGame());
 
-      this.continueText = this.add.text(200, 550, 'Continue', { fontSize: 20, color: 'rgb(0,0,0)', })
+      this.continueText = this.add.text(200, 550, 'Continue', { fontSize: 20, color: 'rgb(0,0,0)' })
         .setOrigin(0.5);
-    }
-    else {
+    } else {
       this.RobotDamageMessage.text = '';
       this.virusDamageMessage.text = `You made ${points} points of damage`;
-      this.sleep(2000).then(() => { this.virusAttackOp(); });
+      RpgPlayer.sleep(2000).then(() => { this.virusAttackOp(); });
     }
   }
 
-  collectVirus() {
+  static collectVirus() {
     window.virusCollected += 1;
   }
 
   soapAttack() {
-    this.disableButtons()
+    this.disableButtons();
     this.virusHealthSubs(this.soap);
     this.playerWin(this.soap);
   }
 
 
   chlorineAttack() {
-    this.disableButtons()
+    this.disableButtons();
     this.virusHealthSubs(this.chlorine);
     this.playerWin(this.chlorine);
   }
 
   uvLightAttack() {
-    this.disableButtons()
+    this.disableButtons();
     this.virusHealthSubs(this.uvLight);
-    this.playerWin(this.uvLight)
+    this.playerWin(this.uvLight);
   }
 
   disableButtons() {
@@ -146,14 +140,13 @@ export default class RpgPlayer extends Phaser.Scene {
   }
 
   virusAttackOp() {
-    this.robotHealthSubs(this.virusAttack);
+    RpgPlayer.robotHealthSubs(this.virusAttack);
     this.playerloose();
-    
   }
 
   playerloose() {
-    if (this.gameOver()) {
-      this.virusDamageMessage.text = `The virus defeated you`;
+    if (RpgPlayer.gameOver()) {
+      this.virusDamageMessage.text = 'The virus defeated you';
       this.RobotDamageMessage.text = '';
 
       this.ContinueButton = this.add.image(200, 550, 'green-button')
@@ -161,18 +154,16 @@ export default class RpgPlayer extends Phaser.Scene {
         .setInteractive()
         .on('pointerdown', () => this.gameOverScreen());
 
-      this.continueText = this.add.text(200, 550, 'Game Over', { fontSize: 18, color: 'rgb(0,0,0)', })
+      this.continueText = this.add.text(200, 550, 'Game Over', { fontSize: 18, color: 'rgb(0,0,0)' })
         .setOrigin(0.5);
-    }
-
-    else {
+    } else {
       this.RobotDamageMessage.text = `You received ${this.virusAttack} points of damage`;
       this.virusDamageMessage.text = 'Your turn';
       this.enableButtons();
     }
   }
 
-  robotHealthSubs(value) {
+  static robotHealthSubs(value) {
     window.robotHealth -= value;
 
     if (window.robotHealth < 0) {
@@ -180,48 +171,40 @@ export default class RpgPlayer extends Phaser.Scene {
     }
   }
 
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  static sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   defeatVirus() {
     if (this.virusHealth <= 0) {
-      return true
+      return true;
     }
-    else {
-      return false
-    }
+
+    return false;
   }
 
-  gameOver() {
+  static gameOver() {
     if (window.robotHealth <= 0) {
-      return true
+      return true;
     }
-    else {
-      return false
-    }
+
+    return false;
   }
 
   update() {
-
     const valueVirus = `Virus Health: ${this.virusHealth}`;
     this.virusHealthText.text = valueVirus;
 
 
     const valueRobot = `Robot Health: ${window.robotHealth}`;
     this.robotHealthText.text = valueRobot;
-
-
-
   }
 
   continueGame() {
     this.scene.start('game-continue');
   }
 
-  gameOverScreen(){
+  gameOverScreen() {
     this.scene.start('game-over');
   }
-
-
 }

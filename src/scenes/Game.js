@@ -183,7 +183,7 @@ export default class Game extends Phaser.Scene {
   }
 
   update() {
-    this.platforms.children.iterate(child => {
+    this.platforms.children.iterate((child) => {
       /** @type {Phaser.Physics.Arcade.Sprite} */
       const platform = child;
       const { scrollY } = this.cameras.main;
@@ -244,9 +244,9 @@ export default class Game extends Phaser.Scene {
     const halfWidth = sprite.displayWidth * 0.5;
     const gameWidth = this.scale.width;
     if (sprite.x < -halfWidth) {
-      sprite.x = gameWidth + halfWidth;
+      sprite.x = gameWidth + halfWidth; // eslint-disable-line no-param-reassign
     } else if (sprite.x > gameWidth + halfWidth) {
-      sprite.x = -halfWidth;
+      sprite.x = -halfWidth; // eslint-disable-line no-param-reassign
     }
   }
 
@@ -264,7 +264,7 @@ export default class Game extends Phaser.Scene {
 
     // window.virusCollected += 1;
 
-    this.virusCollectedText.text = `Coronavirus Destroyed: ${window.virusCollected}`;;
+    this.virusCollectedText.text = `Coronavirus Destroyed: ${window.virusCollected}`;
 
     this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
 
