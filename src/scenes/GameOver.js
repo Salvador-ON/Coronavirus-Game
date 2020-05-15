@@ -44,10 +44,10 @@ export default class GameOver extends Phaser.Scene {
     if (localStorage.getItem('record') !== null) {
       this.record = JSON.parse(localStorage.getItem('record'));
 
-      if (parseInt(this.record, 10) < window.score) {
+      if (parseInt(this.record, 10) < window.virusCollected) {
         this.add.text(200, 440, 'You Have', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
         this.add.text(200, 480, 'New High Score!!!', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-        localStorage.setItem('record', JSON.stringify(window.score));
+        localStorage.setItem('record', JSON.stringify(window.virusCollected));
       } else {
         this.add.text(200, 440, 'Try Again', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
         this.add.text(200, 480, `Your High Score is: ${this.record}`, { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);

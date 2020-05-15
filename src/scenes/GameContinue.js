@@ -2,6 +2,8 @@ import Phaser from '../lib/phaser';
 
 import Virus from '../game/Virus';
 
+import Aid from '../game/Aid';
+
 export default class GameContinue extends Phaser.Scene {
   init() {
     this.left = 0;
@@ -17,6 +19,11 @@ export default class GameContinue extends Phaser.Scene {
     /** @type {Phaser.Physics.Arcade.Group} */
     this.virus = this.physics.add.group({
       classType: Virus,
+    });
+
+    /** @type {Phaser.Physics.Arcade.Group} */
+    this.aid = this.physics.add.group({
+      classType: Aid,
     });
   }
 
@@ -66,6 +73,7 @@ export default class GameContinue extends Phaser.Scene {
 
     // same thing here in the second parameter
     this.physics.add.collider(this.platforms, this.player);
+
     this.physics.add.collider(this.platformB, this.player);
 
     this.player.body.checkCollision.up = false;
@@ -74,21 +82,30 @@ export default class GameContinue extends Phaser.Scene {
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setDeadzone(this.scale.width * 1.5);
 
-    this.virus = this.physics.add.group({
-      classType: Virus,
-    });
+    // this.virus = this.physics.add.group({
+    //   classType: Virus,
+    // });
 
     // this.virus.get(240, 320, 'virus')
 
     this.physics.add.collider(this.platforms, this.virus);
 
+    this.physics.add.collider(this.platforms, this.aid)
 
-    this.physics.add.collider(this.platforms, this.virus);
+    
     // formatted this way to make it easier to read
     this.physics.add.overlap(
       this.player,
       this.virus,
       this.handleCollectVirus, // called on overlap
+      undefined,
+      this,
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.aid,
+      this.handleCollectAid, // called on overlap
       undefined,
       this,
     );
@@ -125,6 +142,12 @@ export default class GameContinue extends Phaser.Scene {
         if ((this.virusDisplay % 17) === 0) {
           this.addVirusAbove(platform);
         }
+
+        if ((this.virusDisplay % 7) === 0) {
+          this.addAidAbove(platform);
+        }
+
+        
       }
     });
 
@@ -183,6 +206,7 @@ export default class GameContinue extends Phaser.Scene {
   /**
 * @param {Phaser.Physics.Arcade.Sprite} player
 * @param {Virus} virus
+* @param {Aid} aid
 */
   handleCollectVirus(player, virus) {
     // hide from display
@@ -198,6 +222,21 @@ export default class GameContinue extends Phaser.Scene {
     this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
 
     this.scene.start('rpg-player');
+  }
+
+  handleCollectAid(player, aid) {
+    // hide from display
+    this.aid.killAndHide(aid);
+
+    // disable from physics world
+    this.physics.world.disableBody(aid.body);
+
+    // window.virusCollected += 1;
+    window.robotHealth += 3;
+
+    this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
+
+    console.log('+1');
   }
 
   /**
@@ -220,6 +259,25 @@ export default class GameContinue extends Phaser.Scene {
     this.physics.world.enable(coronovirus);
 
     return coronovirus;
+  }
+
+  addAidAbove(sprite) {
+    const y = sprite.y - sprite.displayHeight;
+    /** @type {Phaser.Physics.Arcade.Sprite} */
+    const aid = this.aid.get(sprite.x, y, 'aid');
+
+    // set active and visible
+    aid.setActive(true);
+    aid.setVisible(true);
+
+    this.add.existing(aid);
+
+    aid.body.setSize(aid.width, aid.height);
+
+    // make sure body is enabed in the physics world
+    this.physics.world.enable(aid);
+
+    return aid;
   }
 
   findBottomMostPlatform() {
