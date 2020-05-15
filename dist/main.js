@@ -304,6 +304,7 @@ class Game_Game extends phaser.Scene {
       const { scrollY } = this.cameras.main;
       if (platform.y >= scrollY + 700) {
         platform.y = scrollY - phaser.Math.Between(50, 100);
+        platform.x = phaser.Math.Between(50, 370);
         platform.body.updateFromGameObject();
 
         this.virusDisplay += 1;
@@ -562,6 +563,7 @@ class GameContinue_GameContinue extends phaser.Scene {
       const { scrollY } = this.cameras.main;
       if (platform.y >= scrollY + 700) {
         platform.y = scrollY - phaser.Math.Between(50, 100);
+        platform.x = phaser.Math.Between(50, 370);
         platform.body.updateFromGameObject();
 
         this.virusDisplay += 1;

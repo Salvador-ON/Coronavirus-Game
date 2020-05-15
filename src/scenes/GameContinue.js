@@ -117,6 +117,7 @@ export default class GameContinue extends Phaser.Scene {
       const { scrollY } = this.cameras.main;
       if (platform.y >= scrollY + 700) {
         platform.y = scrollY - Phaser.Math.Between(50, 100);
+        platform.x = Phaser.Math.Between(50, 370);
         platform.body.updateFromGameObject();
 
         this.virusDisplay += 1;
