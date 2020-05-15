@@ -79,7 +79,7 @@ export default class RpgPlayer extends Phaser.Scene {
       this.virusDamageMessage.text = 'You defeated the virus';
       this.RobotDamageMessage.text = '';
       RpgPlayer.collectVirus();
-      this.virusImage.visible = false
+      this.virusImage.visible = false;
       this.botImage.x = 200;
       this.ContinueButton = this.add.image(200, 550, 'green-button')
         .setScale(0.5)
@@ -151,7 +151,7 @@ export default class RpgPlayer extends Phaser.Scene {
       this.virusDamageMessage.text = 'The virus defeated you';
       this.RobotDamageMessage.text = '';
 
-      this.virusImage.x = 200
+      this.virusImage.x = 200;
       this.botImage.visible = false;
 
       this.ContinueButton = this.add.image(200, 550, 'green-button')

@@ -162,9 +162,6 @@ class Game_Game extends phaser.Scene {
   }
 
 
-
-
-
   constructor() {
     super('game');
   }
@@ -298,7 +295,7 @@ class Game_Game extends phaser.Scene {
 
     this.physics.add.collider(this.platforms, this.virus);
 
-    this.physics.add.collider(this.platforms, this.aid)
+    this.physics.add.collider(this.platforms, this.aid);
     // formatted this way to make it easier to read
     this.physics.add.overlap(
       this.player,
@@ -324,7 +321,7 @@ class Game_Game extends phaser.Scene {
       .on('pointerdown', () => this.rightclick())
       .on('pointerup', () => this.clickUp());
 
-      const style = { color: '#000', fontSize: 24 };
+    const style = { color: '#000', fontSize: 24 };
     this.virusCollectedText = this.add.text(200, 10, `Coronavirus Destroyed: ${window.virusCollected}`, style)
       .setScrollFactor(0)
       .setOrigin(0.5, 0);
@@ -441,8 +438,6 @@ class Game_Game extends phaser.Scene {
     window.robotHealth += 3;
 
     this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
-
-    console.log('+1');
   }
 
   /**
@@ -613,9 +608,9 @@ class GameContinue_GameContinue extends phaser.Scene {
 
     this.physics.add.collider(this.platforms, this.virus);
 
-    this.physics.add.collider(this.platforms, this.aid)
+    this.physics.add.collider(this.platforms, this.aid);
 
-    
+
     // formatted this way to make it easier to read
     this.physics.add.overlap(
       this.player,
@@ -669,8 +664,6 @@ class GameContinue_GameContinue extends phaser.Scene {
         if ((this.virusDisplay % 7) === 0) {
           this.addAidAbove(platform);
         }
-
-        
       }
     });
 
@@ -758,8 +751,6 @@ class GameContinue_GameContinue extends phaser.Scene {
     window.robotHealth += 3;
 
     this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
-
-    console.log('+1');
   }
 
   /**
@@ -893,53 +884,40 @@ class Start_Start extends phaser.Scene {
 
 // CONCATENATED MODULE: ./src/game/Score.js
 class Score {
-
-  static initBase(){
-    firebase.initializeApp({
+  static initBase() {
+    firebase.initializeApp({ // eslint-disable-line no-undef
       apiKey: 'AIzaSyBZ07ZYBN1nQiUiNe7cuUrFJy327wtBi3s',
       authDomain: 'AUTHDOMAIN',
       projectId: 'coronavirus-game-95a5f',
     });
-    
+
     // Initialize Firebase
-    window.db = firebase.firestore();
-  
+    window.db = firebase.firestore(); // eslint-disable-line no-undef
   }
-  
-  static saveUser(playerName, playerScore){
-    console.log("hey saved")
-    var name = playerName
-    var score = playerScore
-    window.db.collection("users").add({
+
+  static saveUser(playerName, playerScore) {
+    const name = playerName;
+    const score = playerScore;
+    window.db.collection('users').add({
       first: name,
-      score: score,
+      score,
     })
-      .then(function (docRef) {
-        console.log("Document written with ID: ", docRef.id);
+      .then((docRef) => {
+        // console.log('Document written with ID: ', docRef.id);
       })
-      .catch(function (error) {
-        console.error("Error adding document: ", error);
+      .catch((error) => {
+        // console.error('Error adding document: ', error);
       });
-  
   }
-  
-  static readScore(){
-  
-    window.db.collection("users").orderBy("score", "desc").limit(3)
+
+  static readScore() {
+    window.db.collection('users').orderBy('score', 'desc').limit(3)
       .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          // doc.data() is never undefined for query doc snapshots
-          console.log(`${doc.data().first} => ${doc.data().score}`);
-        });
-      })
-      .catch(function (error) {
-        console.log("Error getting documents: ", error);
+      .then((querySnapshot) => querySnapshot)
+      .catch((error) => { // eslint-disable-line no-undef
+        // console.log('Error getting documents: ', error);
       });
-  
   }
-
-
 }
 
 
@@ -966,13 +944,13 @@ class GameOver_GameOver extends phaser.Scene {
     this.add.text(200, 240, 'Type your name', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
     this.validationLabel = this.add.text(200, 400, '', { fontSize: 15, color: 'rgb(255,0,0)' }).setOrigin(0.5);
-    
+
 
     const inputField = document.createElement('input');
     inputField.type = 'text';
     inputField.id = 'nameField';
-    inputField.className = 'rounded'
-    inputField.placeholder = 'Min 3 & Max 10 Letters'
+    inputField.className = 'rounded';
+    inputField.placeholder = 'Min 3 & Max 10 Letters';
     document.getElementById('gameCont').appendChild(inputField);
 
     this.add.image(200, 350, 'green-button')
@@ -995,10 +973,10 @@ class GameOver_GameOver extends phaser.Scene {
     })
       .setOrigin(0.5);
 
-    this.scoreLocal()
+    this.scoreLocal();
   }
 
-  scoreLocal(){
+  scoreLocal() {
     if (localStorage.getItem('record') !== null) {
       this.record = JSON.parse(localStorage.getItem('record'));
 
@@ -1015,7 +993,6 @@ class GameOver_GameOver extends phaser.Scene {
       this.add.text(200, 480, 'New High Score!!!', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
       localStorage.setItem('record', JSON.stringify(window.score));
     }
-
   }
 
   startGame() {
@@ -1029,34 +1006,27 @@ class GameOver_GameOver extends phaser.Scene {
   }
 
 
-  submitName(){
+  submitName() {
     this.name = document.getElementById('nameField').value;
-    if(this.validateData(this.name.length)){
-        console.log('correct');
-        game_Score.initBase();
-        game_Score.saveUser(this.name, window.virusCollected);
-        this.scoreBoard();
-    }
-    else{
+    if (this.validateData(this.name.length)) {
+      game_Score.initBase();
+      game_Score.saveUser(this.name, window.virusCollected);
+      this.scoreBoard();
+    } else {
       this.validationLabel.text = 'Invalid input';
     }
-
   }
 
 
   validateData(name) {
     this.nameLength = name;
-    if (this.nameLength >= 3 && this.nameLength < 10){
+    if (this.nameLength >= 3 && this.nameLength < 10) {
       return true;
     }
-    else{
 
-      return false;
 
-    }
+    return false;
   }
-
-
 }
 
 // CONCATENATED MODULE: ./src/scenes/ScoreBoard.js
@@ -1075,7 +1045,7 @@ class ScoreBoard_ScoreBoard extends phaser.Scene {
     gameboard.setScale(1);
 
     this.add.text(200, 100, 'ScoreBoard', { fontSize: 48, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-    
+
 
     this.add.image(200, 550, 'yellow-button')
       .setInteractive()
@@ -1086,17 +1056,11 @@ class ScoreBoard_ScoreBoard extends phaser.Scene {
       color: 'rgb(0,0,0)',
     })
       .setOrigin(0.5);
-
- 
   }
 
   startGame() {
     this.scene.start('game');
   }
-
-  
-
-
 }
 
 // CONCATENATED MODULE: ./src/scenes/RpgPlayer.js
@@ -1181,7 +1145,7 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
       this.virusDamageMessage.text = 'You defeated the virus';
       this.RobotDamageMessage.text = '';
       RpgPlayer_RpgPlayer.collectVirus();
-      this.virusImage.visible = false
+      this.virusImage.visible = false;
       this.botImage.x = 200;
       this.ContinueButton = this.add.image(200, 550, 'green-button')
         .setScale(0.5)
@@ -1253,7 +1217,7 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
       this.virusDamageMessage.text = 'The virus defeated you';
       this.RobotDamageMessage.text = '';
 
-      this.virusImage.x = 200
+      this.virusImage.x = 200;
       this.botImage.visible = false;
 
       this.ContinueButton = this.add.image(200, 550, 'green-button')
@@ -1336,7 +1300,7 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
   type: phaser.AUTO,
   width: 400,
   height: 640,
-  scene: [Start_Start, Game_Game, GameOver_GameOver, RpgPlayer_RpgPlayer, GameContinue_GameContinue, ScoreBoard_ScoreBoard] ,
+  scene: [Start_Start, Game_Game, GameOver_GameOver, RpgPlayer_RpgPlayer, GameContinue_GameContinue, ScoreBoard_ScoreBoard],
   parent: 'gameCont',
   physics: {
     default: 'arcade',

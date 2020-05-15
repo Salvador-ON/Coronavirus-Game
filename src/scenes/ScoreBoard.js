@@ -13,7 +13,7 @@ export default class ScoreBoard extends Phaser.Scene {
     gameboard.setScale(1);
 
     this.add.text(200, 100, 'ScoreBoard', { fontSize: 48, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-    
+
 
     this.add.image(200, 550, 'yellow-button')
       .setInteractive()
@@ -24,15 +24,9 @@ export default class ScoreBoard extends Phaser.Scene {
       color: 'rgb(0,0,0)',
     })
       .setOrigin(0.5);
-
- 
   }
 
   startGame() {
     this.scene.start('game');
   }
-
-  
-
-
 }

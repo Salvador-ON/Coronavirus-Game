@@ -90,9 +90,9 @@ export default class GameContinue extends Phaser.Scene {
 
     this.physics.add.collider(this.platforms, this.virus);
 
-    this.physics.add.collider(this.platforms, this.aid)
+    this.physics.add.collider(this.platforms, this.aid);
 
-    
+
     // formatted this way to make it easier to read
     this.physics.add.overlap(
       this.player,
@@ -146,8 +146,6 @@ export default class GameContinue extends Phaser.Scene {
         if ((this.virusDisplay % 7) === 0) {
           this.addAidAbove(platform);
         }
-
-        
       }
     });
 
@@ -235,8 +233,6 @@ export default class GameContinue extends Phaser.Scene {
     window.robotHealth += 3;
 
     this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
-
-    console.log('+1');
   }
 
   /**

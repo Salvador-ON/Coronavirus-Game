@@ -17,7 +17,7 @@ export default new Phaser.Game({
   type: Phaser.AUTO,
   width: 400,
   height: 640,
-  scene: [Start, Game, GameOver, RpgPlayer, GameContinue, ScoreBoard] ,
+  scene: [Start, Game, GameOver, RpgPlayer, GameContinue, ScoreBoard],
   parent: 'gameCont',
   physics: {
     default: 'arcade',

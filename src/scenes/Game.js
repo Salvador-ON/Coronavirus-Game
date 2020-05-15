@@ -30,9 +30,6 @@ export default class Game extends Phaser.Scene {
   }
 
 
-
-
-
   constructor() {
     super('game');
   }
@@ -166,7 +163,7 @@ export default class Game extends Phaser.Scene {
 
     this.physics.add.collider(this.platforms, this.virus);
 
-    this.physics.add.collider(this.platforms, this.aid)
+    this.physics.add.collider(this.platforms, this.aid);
     // formatted this way to make it easier to read
     this.physics.add.overlap(
       this.player,
@@ -192,7 +189,7 @@ export default class Game extends Phaser.Scene {
       .on('pointerdown', () => this.rightclick())
       .on('pointerup', () => this.clickUp());
 
-      const style = { color: '#000', fontSize: 24 };
+    const style = { color: '#000', fontSize: 24 };
     this.virusCollectedText = this.add.text(200, 10, `Coronavirus Destroyed: ${window.virusCollected}`, style)
       .setScrollFactor(0)
       .setOrigin(0.5, 0);
@@ -309,8 +306,6 @@ export default class Game extends Phaser.Scene {
     window.robotHealth += 3;
 
     this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
-
-    console.log('+1');
   }
 
   /**

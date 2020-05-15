@@ -18,13 +18,13 @@ export default class GameOver extends Phaser.Scene {
     this.add.text(200, 240, 'Type your name', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
     this.validationLabel = this.add.text(200, 400, '', { fontSize: 15, color: 'rgb(255,0,0)' }).setOrigin(0.5);
-    
+
 
     const inputField = document.createElement('input');
     inputField.type = 'text';
     inputField.id = 'nameField';
-    inputField.className = 'rounded'
-    inputField.placeholder = 'Min 3 & Max 10 Letters'
+    inputField.className = 'rounded';
+    inputField.placeholder = 'Min 3 & Max 10 Letters';
     document.getElementById('gameCont').appendChild(inputField);
 
     this.add.image(200, 350, 'green-button')
@@ -47,10 +47,10 @@ export default class GameOver extends Phaser.Scene {
     })
       .setOrigin(0.5);
 
-    this.scoreLocal()
+    this.scoreLocal();
   }
 
-  scoreLocal(){
+  scoreLocal() {
     if (localStorage.getItem('record') !== null) {
       this.record = JSON.parse(localStorage.getItem('record'));
 
@@ -67,7 +67,6 @@ export default class GameOver extends Phaser.Scene {
       this.add.text(200, 480, 'New High Score!!!', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
       localStorage.setItem('record', JSON.stringify(window.score));
     }
-
   }
 
   startGame() {
@@ -81,32 +80,25 @@ export default class GameOver extends Phaser.Scene {
   }
 
 
-  submitName(){
+  submitName() {
     this.name = document.getElementById('nameField').value;
-    if(this.validateData(this.name.length)){
-        console.log('correct');
-        Score.initBase();
-        Score.saveUser(this.name, window.virusCollected);
-        this.scoreBoard();
-    }
-    else{
+    if (this.validateData(this.name.length)) {
+      Score.initBase();
+      Score.saveUser(this.name, window.virusCollected);
+      this.scoreBoard();
+    } else {
       this.validationLabel.text = 'Invalid input';
     }
-
   }
 
 
   validateData(name) {
     this.nameLength = name;
-    if (this.nameLength >= 3 && this.nameLength < 10){
+    if (this.nameLength >= 3 && this.nameLength < 10) {
       return true;
     }
-    else{
 
-      return false;
 
-    }
+    return false;
   }
-
-
 }
