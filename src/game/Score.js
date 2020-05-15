@@ -26,9 +26,15 @@ class Score {
   }
 
   static readScore() {
-    window.db.collection('users').orderBy('score', 'desc').limit(3)
+    window.db.collection('users').orderBy('score', 'desc').limit(5)
       .get()
-      .then((querySnapshot) => querySnapshot)
+      .then((querySnapshot) => {
+        window.query = querySnapshot
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+        console.log(`${doc.data().first} => ${doc.data().score}`);
+        });
+      })
       .catch((error) => { // eslint-disable-line no-undef
         // console.log('Error getting documents: ', error);
       });
