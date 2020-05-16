@@ -1,5 +1,6 @@
 import Phaser from '../lib/phaser';
 
+
 export default class Start extends Phaser.Scene {
   constructor() {
     super('start');
@@ -9,7 +10,7 @@ export default class Start extends Phaser.Scene {
 
   preload() {
  
-
+    
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);

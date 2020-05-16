@@ -760,6 +760,7 @@ class GameContinue_GameContinue extends phaser.Scene {
 // CONCATENATED MODULE: ./src/scenes/Start.js
 
 
+
 class Start_Start extends phaser.Scene {
   constructor() {
     super('start');
@@ -769,7 +770,7 @@ class Start_Start extends phaser.Scene {
 
   preload() {
  
-
+    
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
@@ -928,20 +929,33 @@ class Score {
   }
 
   static readScore() {
-    window.db.collection('users').orderBy('score', 'desc').limit(5)
+    return window.db.collection('users').orderBy('score', 'desc').limit(10)
       .get()
       .then((querySnapshot) => {
-        window.query = querySnapshot
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-        console.log(`${doc.data().first} => ${doc.data().score}`);
-        });
+        const query = querySnapshot;
+        // console.log(query);
+        // query.forEach((doc) => {
+        //   // doc.data() is never undefined for query doc snapshots
+        // console.log(`${doc.data().first} => ${doc.data().score}`);
+        // });
+
+        return query
       })
       .catch((error) => { // eslint-disable-line no-undef
         // console.log('Error getting documents: ', error);
       });
   }
+
+
 }
+
+
+
+
+
+
+
+
 
 
 /* harmony default export */ var game_Score = (Score);
@@ -1032,7 +1046,6 @@ class GameOver_GameOver extends phaser.Scene {
   submitName() {
     this.name = document.getElementById('nameField').value;
     if (this.validateData(this.name.length)) {
-      game_Score.initBase();
       game_Score.saveUser(this.name, window.virusCollected);
       this.scoreBoard();
     } else {
@@ -1061,7 +1074,7 @@ class ScoreBoard_ScoreBoard extends phaser.Scene {
     super('score-board');
   }
 
-  
+
 
   create() {
     this.add.image(200, 320, 'background');
@@ -1070,9 +1083,10 @@ class ScoreBoard_ScoreBoard extends phaser.Scene {
 
 
     this.add.text(200, 100, 'ScoreBoard', { fontSize: 48, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-    game_Score.initBase();
-    game_Score.readScore()
-    console.log(window.query)
+
+    getScore();
+
+    // console.log(window.query)
 
 
     this.add.image(200, 550, 'yellow-button')
@@ -1093,8 +1107,20 @@ class ScoreBoard_ScoreBoard extends phaser.Scene {
   menu() {
     this.scene.start('start');
   }
+
+
 }
 
+
+async function getScore() {
+  const data = await game_Score.readScore();
+  data.forEach((doc) => {
+    console.log(`${doc.data().first} => ${doc.data().score}`);
+  });
+
+
+
+}
 // CONCATENATED MODULE: ./src/scenes/RpgPlayer.js
 
 
@@ -1370,6 +1396,8 @@ class Instructions_Instruction extends phaser.Scene {
 
 
 
+
+
 /* harmony default export */ var src = __webpack_exports__["default"] = (new phaser.Game({
   type: phaser.AUTO,
   width: 400,
@@ -1388,6 +1416,8 @@ class Instructions_Instruction extends phaser.Scene {
 
 }));
 
+
+game_Score.initBase();
 
 /***/ })
 /******/ ]);

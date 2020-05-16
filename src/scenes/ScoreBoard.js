@@ -6,7 +6,7 @@ export default class ScoreBoard extends Phaser.Scene {
     super('score-board');
   }
 
-  
+
 
   create() {
     this.add.image(200, 320, 'background');
@@ -15,9 +15,10 @@ export default class ScoreBoard extends Phaser.Scene {
 
 
     this.add.text(200, 100, 'ScoreBoard', { fontSize: 48, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-    Score.initBase();
-    Score.readScore()
-    console.log(window.query)
+
+    getScore();
+
+    // console.log(window.query)
 
 
     this.add.image(200, 550, 'yellow-button')
@@ -38,4 +39,17 @@ export default class ScoreBoard extends Phaser.Scene {
   menu() {
     this.scene.start('start');
   }
+
+
+}
+
+
+async function getScore() {
+  const data = await Score.readScore();
+  data.forEach((doc) => {
+    console.log(`${doc.data().first} => ${doc.data().score}`);
+  });
+
+
+
 }

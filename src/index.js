@@ -14,6 +14,8 @@ import RpgPlayer from './scenes/RpgPlayer';
 
 import Instructions from './scenes/Instructions';
 
+import Score from './game/Score';
+
 
 export default new Phaser.Game({
   type: Phaser.AUTO,
@@ -32,3 +34,6 @@ export default new Phaser.Game({
   },
 
 });
+
+
+Score.initBase();

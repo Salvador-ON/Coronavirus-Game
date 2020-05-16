@@ -26,20 +26,33 @@ class Score {
   }
 
   static readScore() {
-    window.db.collection('users').orderBy('score', 'desc').limit(5)
+    return window.db.collection('users').orderBy('score', 'desc').limit(10)
       .get()
       .then((querySnapshot) => {
-        window.query = querySnapshot
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-        console.log(`${doc.data().first} => ${doc.data().score}`);
-        });
+        const query = querySnapshot;
+        // console.log(query);
+        // query.forEach((doc) => {
+        //   // doc.data() is never undefined for query doc snapshots
+        // console.log(`${doc.data().first} => ${doc.data().score}`);
+        // });
+
+        return query
       })
       .catch((error) => { // eslint-disable-line no-undef
         // console.log('Error getting documents: ', error);
       });
   }
+
+
 }
+
+
+
+
+
+
+
+
 
 
 export default Score;

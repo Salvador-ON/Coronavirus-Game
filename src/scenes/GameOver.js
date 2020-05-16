@@ -83,7 +83,6 @@ export default class GameOver extends Phaser.Scene {
   submitName() {
     this.name = document.getElementById('nameField').value;
     if (this.validateData(this.name.length)) {
-      Score.initBase();
       Score.saveUser(this.name, window.virusCollected);
       this.scoreBoard();
     } else {
