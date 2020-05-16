@@ -14,7 +14,6 @@ export default class Game extends Phaser.Scene {
     /** @type {Phaser.Types.Input.Keyboard.CursorKeys} */
     this.cursors = this.input.keyboard.createCursorKeys();
 
-   
 
     /** @type {Phaser.Physics.Arcade.Group} */
     this.virus = this.physics.add.group({

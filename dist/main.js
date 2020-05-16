@@ -146,7 +146,6 @@ class Game_Game extends phaser.Scene {
     /** @type {Phaser.Types.Input.Keyboard.CursorKeys} */
     this.cursors = this.input.keyboard.createCursorKeys();
 
-   
 
     /** @type {Phaser.Physics.Arcade.Group} */
     this.virus = this.physics.add.group({
@@ -1281,6 +1280,9 @@ class Instructions_Instruction extends phaser.Scene {
       color: 'rgb(0,0,0)',
     })
       .setOrigin(0.5);
+
+    this.add.text(200, 605, 'Created by: Salvador ON', { fontSize: 17, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 630, 'salvador-on.github.io', { fontSize: 17, color: 'rgb(0,0,0)' }).setOrigin(0.5);
   }
 
   startGame() {
