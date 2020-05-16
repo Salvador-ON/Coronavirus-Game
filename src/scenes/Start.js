@@ -92,7 +92,10 @@ export default class Start extends Phaser.Scene {
     this.add.image(200, 500, 'yellow-button')
       .setInteractive()
       .on('pointerdown', () => this.startGame());
-    this.add.image(200, 550, 'green-button');
+
+    this.add.image(200, 550, 'green-button').setInteractive()
+    .on('pointerdown', () => this.instructions());
+
     this.add.image(200, 600, 'blue-button')
     .setInteractive()
     .on('pointerdown', () => this.scoreBoard());
@@ -129,5 +132,9 @@ export default class Start extends Phaser.Scene {
 
   scoreBoard() {
     this.scene.start('score-board');
+  }
+
+  instructions() {
+    this.scene.start('instructions');
   }
 }

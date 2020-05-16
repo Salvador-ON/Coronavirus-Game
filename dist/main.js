@@ -852,7 +852,10 @@ class Start_Start extends phaser.Scene {
     this.add.image(200, 500, 'yellow-button')
       .setInteractive()
       .on('pointerdown', () => this.startGame());
-    this.add.image(200, 550, 'green-button');
+
+    this.add.image(200, 550, 'green-button').setInteractive()
+    .on('pointerdown', () => this.instructions());
+
     this.add.image(200, 600, 'blue-button')
     .setInteractive()
     .on('pointerdown', () => this.scoreBoard());
@@ -889,6 +892,10 @@ class Start_Start extends phaser.Scene {
 
   scoreBoard() {
     this.scene.start('score-board');
+  }
+
+  instructions() {
+    this.scene.start('instructions');
   }
 }
 
@@ -1305,7 +1312,49 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
   }
 }
 
+// CONCATENATED MODULE: ./src/scenes/Instructions.js
+
+
+
+class Instructions_Instruction extends phaser.Scene {
+  constructor() {
+    super('instructions');
+  }
+
+  
+
+  create() {
+    this.add.image(200, 320, 'background');
+    const gameboard = this.add.image(200, 320, 'block');
+    gameboard.setScale(1);
+
+
+    this.add.text(200, 100, 'Instructions', { fontSize: 48, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    
+
+    this.add.image(200, 550, 'yellow-button')
+      .setInteractive()
+      .on('pointerdown', () => this.menu());
+
+    this.add.text(200, 550, 'Menu', {
+      fontSize: 28,
+      color: 'rgb(0,0,0)',
+    })
+      .setOrigin(0.5);
+  }
+
+  startGame() {
+    this.scene.start('game');
+  }
+
+  menu() {
+    this.scene.start('start');
+  }
+}
+
 // CONCATENATED MODULE: ./src/index.js
+
+
 
 
 
@@ -1325,7 +1374,7 @@ class RpgPlayer_RpgPlayer extends phaser.Scene {
   type: phaser.AUTO,
   width: 400,
   height: 640,
-  scene: [Start_Start, Game_Game, GameOver_GameOver, RpgPlayer_RpgPlayer, GameContinue_GameContinue, ScoreBoard_ScoreBoard],
+  scene: [Start_Start, Game_Game, GameOver_GameOver, RpgPlayer_RpgPlayer, GameContinue_GameContinue, ScoreBoard_ScoreBoard, Instructions_Instruction],
   parent: 'gameCont',
   physics: {
     default: 'arcade',

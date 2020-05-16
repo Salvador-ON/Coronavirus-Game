@@ -12,12 +12,14 @@ import ScoreBoard from './scenes/ScoreBoard';
 
 import RpgPlayer from './scenes/RpgPlayer';
 
+import Instructions from './scenes/Instructions';
+
 
 export default new Phaser.Game({
   type: Phaser.AUTO,
   width: 400,
   height: 640,
-  scene: [Start, Game, GameOver, RpgPlayer, GameContinue, ScoreBoard],
+  scene: [Start, Game, GameOver, RpgPlayer, GameContinue, ScoreBoard, Instructions],
   parent: 'gameCont',
   physics: {
     default: 'arcade',
