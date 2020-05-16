@@ -1,4 +1,4 @@
-import Logic from '../src/game/Logic.js';
+import Logic from '../src/game/Logic';
 
 
 test('validate true if name greatter than 3 and lower than 11', () => {
