@@ -59,7 +59,6 @@ export default class ScoreBoard extends Phaser.Scene {
     const info = await Score.readScore();
     this.loading.text ='';
     info.forEach((doc) => {
-      console.log(`${doc.data().first} => ${doc.data().score}`);
       this.add.text(80, 180 + space, `${position}`, { fontSize: 20, color: 'rgb(0,0,0)' });
       this.add.text(170, 180 + space, `${doc.data().first}`, { fontSize: 20, color: 'rgb(0,0,0)' });
       this.add.text(300, 180 + space, `${doc.data().score}`, { fontSize: 20, color: 'rgb(0,0,0)' });

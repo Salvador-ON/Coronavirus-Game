@@ -83,7 +83,7 @@ export default class GameOver extends Phaser.Scene {
   submitName() {
     this.name = document.getElementById('nameField').value;
     if (this.validateData(this.name.length)) {
-      Score.saveUser(this.name, window.virusCollected);
+      Score.saveUser(this.capitalize(this.name), window.virusCollected);
       this.scoreBoard();
     } else {
       this.validationLabel.text = 'Invalid input';
@@ -99,5 +99,10 @@ export default class GameOver extends Phaser.Scene {
 
 
     return false;
+  }
+
+  capitalize(s){
+    if (typeof s !== 'string') return s
+    return s.charAt(0).toUpperCase() + s.slice(1)
   }
 }

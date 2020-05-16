@@ -815,7 +815,7 @@ class Start_Start extends phaser.Scene {
       percentText.setText(`${parseInt(value * 100, 10)}%`);
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(40, 280, 300 * value, 30);
+      progressBar.fillRect(50, 280, 300 * value, 30);
     });
 
     this.load.on('fileprogress', (file) => {
@@ -1046,7 +1046,7 @@ class GameOver_GameOver extends phaser.Scene {
   submitName() {
     this.name = document.getElementById('nameField').value;
     if (this.validateData(this.name.length)) {
-      game_Score.saveUser(this.name, window.virusCollected);
+      game_Score.saveUser(this.capitalize(this.name), window.virusCollected);
       this.scoreBoard();
     } else {
       this.validationLabel.text = 'Invalid input';
@@ -1062,6 +1062,11 @@ class GameOver_GameOver extends phaser.Scene {
 
 
     return false;
+  }
+
+  capitalize(s){
+    if (typeof s !== 'string') return s
+    return s.charAt(0).toUpperCase() + s.slice(1)
   }
 }
 
@@ -1127,7 +1132,6 @@ class ScoreBoard_ScoreBoard extends phaser.Scene {
     const info = await game_Score.readScore();
     this.loading.text ='';
     info.forEach((doc) => {
-      console.log(`${doc.data().first} => ${doc.data().score}`);
       this.add.text(80, 180 + space, `${position}`, { fontSize: 20, color: 'rgb(0,0,0)' });
       this.add.text(170, 180 + space, `${doc.data().first}`, { fontSize: 20, color: 'rgb(0,0,0)' });
       this.add.text(300, 180 + space, `${doc.data().score}`, { fontSize: 20, color: 'rgb(0,0,0)' });
@@ -1375,8 +1379,27 @@ class Instructions_Instruction extends phaser.Scene {
     gameboard.setScale(1);
 
 
-    this.add.text(200, 100, 'Instructions', { fontSize: 48, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 90, 'Instructions', { fontSize: 48, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 130, 'Defeat the Coronavirus', { fontSize: 16, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 150, 'Is mix of an infinity jumper and rpg.', { fontSize: 16, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+
+    this.add.text(200, 190, 'Mission:', { fontSize: 30, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 220, '- Destroy as many viruses as possible. ', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 239, '- Pick all the first aid kits.', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 255, 'So you could survive more virus attacks.', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+
+    this.add.text(200, 275, '- You can defeat the virus with:', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 295, 'Soap, Alcohol, UVLigh.', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 325, 'Be careful ', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 345, 'Each virus has different resistance.', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
     
+    this.add.text(200, 385, 'Controls:', { fontSize: 30, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 410, 'Desktop device: ', { fontSize: 18, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 430, 'Use the arrows keys and cursor ', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+
+    this.add.text(200, 455, 'Mobile device: ', { fontSize: 18, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 475, 'Use the yellow arrows to move.', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+    this.add.text(200, 495, 'Tap on the buttons', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
     this.add.image(200, 550, 'yellow-button')
       .setInteractive()
