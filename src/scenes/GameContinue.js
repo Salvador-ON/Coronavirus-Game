@@ -41,15 +41,10 @@ export default class GameContinue extends Phaser.Scene {
     this.add.image(200, 320, 'background')
       .setScrollFactor(1, 0);
 
-    // remove this:
 
-
-    // create the group
     this.platforms = this.physics.add.staticGroup();
-
     this.platformB = this.physics.add.staticGroup();
 
-    // then create 5 platforms from the group
     for (let i = 0; i < 5; i += 1) {
       const x = Phaser.Math.Between(50, 370);
       const y = 190 * i;
@@ -71,9 +66,7 @@ export default class GameContinue extends Phaser.Scene {
 
     this.player.body.setSize(35, 125);
 
-    // same thing here in the second parameter
     this.physics.add.collider(this.platforms, this.player);
-
     this.physics.add.collider(this.platformB, this.player);
 
     this.player.body.checkCollision.up = false;
@@ -82,22 +75,14 @@ export default class GameContinue extends Phaser.Scene {
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setDeadzone(this.scale.width * 1.5);
 
-    // this.virus = this.physics.add.group({
-    //   classType: Virus,
-    // });
-
-    // this.virus.get(240, 320, 'virus')
 
     this.physics.add.collider(this.platforms, this.virus);
-
     this.physics.add.collider(this.platforms, this.aid);
 
-
-    // formatted this way to make it easier to read
     this.physics.add.overlap(
       this.player,
       this.virus,
-      this.handleCollectVirus, // called on overlap
+      this.handleCollectVirus,
       undefined,
       this,
     );
@@ -105,7 +90,7 @@ export default class GameContinue extends Phaser.Scene {
     this.physics.add.overlap(
       this.player,
       this.aid,
-      this.handleCollectAid, // called on overlap
+      this.handleCollectAid,
       undefined,
       this,
     );
@@ -149,32 +134,24 @@ export default class GameContinue extends Phaser.Scene {
       }
     });
 
-    // find out from Arcade Physics if the player's physics body
-    // is touching something below it
 
     const touchingDown = this.player.body.touching.down;
     if (touchingDown) {
       this.player.setVelocityY(-300);
-
-      // switch to jump texture
       this.player.setTexture('bot-jump');
       this.sound.play('jump');
     }
 
     const vy = this.player.body.velocity.y;
     if (vy > 0 && this.player.texture.key !== 'bot-stand') {
-      // switch back to jump when falling
       this.player.setTexture('bot-stand');
     }
 
-
-    // left and right input logic
     if ((this.cursors.left.isDown || this.left === 1) && !touchingDown) {
       this.player.setVelocityX(-200);
     } else if ((this.cursors.right.isDown || this.right === 1) && !touchingDown) {
       this.player.setVelocityX(200);
     } else {
-      // stop movement if not left or right
       this.player.setVelocityX(0);
     }
 
@@ -207,31 +184,17 @@ export default class GameContinue extends Phaser.Scene {
 * @param {Aid} aid
 */
   handleCollectVirus(player, virus) {
-    // hide from display
     this.virus.killAndHide(virus);
-
-    // disable from physics world
     this.physics.world.disableBody(virus.body);
-
-    // window.virusCollected += 1;
-
     this.virusCollectedText.text = `Coronavirus: ${window.virusCollected}`;
-
     this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
-
     this.scene.start('rpg-player');
   }
 
   handleCollectAid(player, aid) {
-    // hide from display
     this.aid.killAndHide(aid);
-
-    // disable from physics world
     this.physics.world.disableBody(aid.body);
-
-    // window.virusCollected += 1;
     window.robotHealth += 3;
-
     this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
   }
 
@@ -243,15 +206,10 @@ export default class GameContinue extends Phaser.Scene {
     /** @type {Phaser.Physics.Arcade.Sprite} */
     const coronovirus = this.virus.get(sprite.x, y, 'virus');
 
-    // set active and visible
     coronovirus.setActive(true);
     coronovirus.setVisible(true);
-
     this.add.existing(coronovirus);
-
     coronovirus.body.setSize(coronovirus.width, coronovirus.height);
-
-    // make sure body is enabed in the physics world
     this.physics.world.enable(coronovirus);
 
     return coronovirus;
@@ -262,15 +220,11 @@ export default class GameContinue extends Phaser.Scene {
     /** @type {Phaser.Physics.Arcade.Sprite} */
     const aid = this.aid.get(sprite.x, y, 'aid');
 
-    // set active and visible
+
     aid.setActive(true);
     aid.setVisible(true);
-
     this.add.existing(aid);
-
     aid.body.setSize(aid.width, aid.height);
-
-    // make sure body is enabed in the physics world
     this.physics.world.enable(aid);
 
     return aid;

@@ -6,11 +6,8 @@ export default class Start extends Phaser.Scene {
     super('start');
   }
 
-  
 
   preload() {
- 
-    
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
@@ -95,11 +92,11 @@ export default class Start extends Phaser.Scene {
       .on('pointerdown', () => this.startGame());
 
     this.add.image(200, 550, 'green-button').setInteractive()
-    .on('pointerdown', () => this.instructions());
+      .on('pointerdown', () => this.instructions());
 
     this.add.image(200, 600, 'blue-button')
-    .setInteractive()
-    .on('pointerdown', () => this.scoreBoard());
+      .setInteractive()
+      .on('pointerdown', () => this.scoreBoard());
 
 
     this.add.text(200, 500, 'Start', {

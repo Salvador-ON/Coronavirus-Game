@@ -146,8 +146,7 @@ class Game_Game extends phaser.Scene {
     /** @type {Phaser.Types.Input.Keyboard.CursorKeys} */
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    // /** @type {Phaser.Physics.Arcade.StaticGroup} */
-    // this.platforms == this.physics.add.staticGroup();
+   
 
     /** @type {Phaser.Physics.Arcade.Group} */
     this.virus = this.physics.add.group({
@@ -168,7 +167,6 @@ class Game_Game extends phaser.Scene {
 
   preload() {
     this.cursors = this.input.keyboard.createCursorKeys();
-
   }
 
 
@@ -176,15 +174,11 @@ class Game_Game extends phaser.Scene {
     this.add.image(200, 320, 'background')
       .setScrollFactor(1, 0);
 
-    // remove this:
 
-
-    // create the group
     this.platforms = this.physics.add.staticGroup();
 
     this.platformB = this.physics.add.staticGroup();
 
-    // then create 5 platforms from the group
     for (let i = 0; i < 5; i += 1) {
       const x = phaser.Math.Between(50, 370);
       const y = 190 * i;
@@ -205,31 +199,24 @@ class Game_Game extends phaser.Scene {
       .setScale(1);
 
     this.player.body.setSize(35, 125);
-
-    // same thing here in the second parameter
     this.physics.add.collider(this.platforms, this.player);
     this.physics.add.collider(this.platformB, this.player);
 
     this.player.body.checkCollision.up = false;
     this.player.body.checkCollision.left = false;
     this.player.body.checkCollision.right = false;
+
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setDeadzone(this.scale.width * 1.5);
 
-    // this.virus = this.physics.add.group({
-    //   classType: Virus,
-    // });
-
-    // this.virus.get(240, 320, 'virus')
-
     this.physics.add.collider(this.platforms, this.virus);
-
     this.physics.add.collider(this.platforms, this.aid);
-    // formatted this way to make it easier to read
+
+
     this.physics.add.overlap(
       this.player,
       this.virus,
-      this.handleCollectVirus, // called on overlap
+      this.handleCollectVirus,
       undefined,
       this,
     );
@@ -238,7 +225,7 @@ class Game_Game extends phaser.Scene {
     this.physics.add.overlap(
       this.player,
       this.aid,
-      this.handleCollectAid, // called on overlap
+      this.handleCollectAid,
       undefined,
       this,
     );
@@ -246,6 +233,7 @@ class Game_Game extends phaser.Scene {
     this.add.image(60, 600, 'leftButton').setScrollFactor(1, 0).setInteractive()
       .on('pointerdown', () => this.leftclick())
       .on('pointerup', () => this.clickUp());
+
     this.add.image(340, 600, 'rightButton').setScrollFactor(1, 0).setInteractive()
       .on('pointerdown', () => this.rightclick())
       .on('pointerup', () => this.clickUp());
@@ -282,26 +270,19 @@ class Game_Game extends phaser.Scene {
       }
     });
 
-    // find out from Arcade Physics if the player's physics body
-    // is touching something below it
 
     const touchingDown = this.player.body.touching.down;
     if (touchingDown) {
       this.player.setVelocityY(-300);
-
-      // switch to jump texture
       this.player.setTexture('bot-jump');
       this.sound.play('jump');
     }
 
     const vy = this.player.body.velocity.y;
     if (vy > 0 && this.player.texture.key !== 'bot-stand') {
-      // switch back to jump when falling
       this.player.setTexture('bot-stand');
     }
 
-
-    // left and right input logic
     if ((this.cursors.left.isDown || this.left === 1) && !touchingDown) {
       this.player.setVelocityX(-200);
     } else if ((this.cursors.right.isDown || this.right === 1) && !touchingDown) {
@@ -340,32 +321,18 @@ class Game_Game extends phaser.Scene {
   * @param {Aid} aid
   */
   handleCollectVirus(player, virus) {
-    // hide from display
     this.virus.killAndHide(virus);
-
-    // disable from physics world
     this.physics.world.disableBody(virus.body);
-
-    // window.virusCollected += 1;
-
     this.virusCollectedText.text = `Coronavirus Destroyed: ${window.virusCollected}`;
-
     this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
-
     this.scene.start('rpg-player');
   }
 
 
   handleCollectAid(player, aid) {
-    // hide from display
     this.aid.killAndHide(aid);
-
-    // disable from physics world
     this.physics.world.disableBody(aid.body);
-
-    // window.virusCollected += 1;
     window.robotHealth += 3;
-
     this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
   }
 
@@ -377,17 +344,12 @@ class Game_Game extends phaser.Scene {
     /** @type {Phaser.Physics.Arcade.Sprite} */
     const coronovirus = this.virus.get(sprite.x, y, 'virus');
 
-    // set active and visible
+
     coronovirus.setActive(true);
     coronovirus.setVisible(true);
-
     this.add.existing(coronovirus);
-
     coronovirus.body.setSize(coronovirus.width, coronovirus.height);
-
-    // make sure body is enabed in the physics world
     this.physics.world.enable(coronovirus);
-
     return coronovirus;
   }
 
@@ -395,18 +357,11 @@ class Game_Game extends phaser.Scene {
     const y = sprite.y - sprite.displayHeight;
     /** @type {Phaser.Physics.Arcade.Sprite} */
     const aid = this.aid.get(sprite.x, y, 'aid');
-
-    // set active and visible
     aid.setActive(true);
     aid.setVisible(true);
-
     this.add.existing(aid);
-
     aid.body.setSize(aid.width, aid.height);
-
-    // make sure body is enabed in the physics world
     this.physics.world.enable(aid);
-
     return aid;
   }
 
@@ -488,15 +443,10 @@ class GameContinue_GameContinue extends phaser.Scene {
     this.add.image(200, 320, 'background')
       .setScrollFactor(1, 0);
 
-    // remove this:
 
-
-    // create the group
     this.platforms = this.physics.add.staticGroup();
-
     this.platformB = this.physics.add.staticGroup();
 
-    // then create 5 platforms from the group
     for (let i = 0; i < 5; i += 1) {
       const x = phaser.Math.Between(50, 370);
       const y = 190 * i;
@@ -518,9 +468,7 @@ class GameContinue_GameContinue extends phaser.Scene {
 
     this.player.body.setSize(35, 125);
 
-    // same thing here in the second parameter
     this.physics.add.collider(this.platforms, this.player);
-
     this.physics.add.collider(this.platformB, this.player);
 
     this.player.body.checkCollision.up = false;
@@ -529,22 +477,14 @@ class GameContinue_GameContinue extends phaser.Scene {
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setDeadzone(this.scale.width * 1.5);
 
-    // this.virus = this.physics.add.group({
-    //   classType: Virus,
-    // });
-
-    // this.virus.get(240, 320, 'virus')
 
     this.physics.add.collider(this.platforms, this.virus);
-
     this.physics.add.collider(this.platforms, this.aid);
 
-
-    // formatted this way to make it easier to read
     this.physics.add.overlap(
       this.player,
       this.virus,
-      this.handleCollectVirus, // called on overlap
+      this.handleCollectVirus,
       undefined,
       this,
     );
@@ -552,7 +492,7 @@ class GameContinue_GameContinue extends phaser.Scene {
     this.physics.add.overlap(
       this.player,
       this.aid,
-      this.handleCollectAid, // called on overlap
+      this.handleCollectAid,
       undefined,
       this,
     );
@@ -596,32 +536,24 @@ class GameContinue_GameContinue extends phaser.Scene {
       }
     });
 
-    // find out from Arcade Physics if the player's physics body
-    // is touching something below it
 
     const touchingDown = this.player.body.touching.down;
     if (touchingDown) {
       this.player.setVelocityY(-300);
-
-      // switch to jump texture
       this.player.setTexture('bot-jump');
       this.sound.play('jump');
     }
 
     const vy = this.player.body.velocity.y;
     if (vy > 0 && this.player.texture.key !== 'bot-stand') {
-      // switch back to jump when falling
       this.player.setTexture('bot-stand');
     }
 
-
-    // left and right input logic
     if ((this.cursors.left.isDown || this.left === 1) && !touchingDown) {
       this.player.setVelocityX(-200);
     } else if ((this.cursors.right.isDown || this.right === 1) && !touchingDown) {
       this.player.setVelocityX(200);
     } else {
-      // stop movement if not left or right
       this.player.setVelocityX(0);
     }
 
@@ -654,31 +586,17 @@ class GameContinue_GameContinue extends phaser.Scene {
 * @param {Aid} aid
 */
   handleCollectVirus(player, virus) {
-    // hide from display
     this.virus.killAndHide(virus);
-
-    // disable from physics world
     this.physics.world.disableBody(virus.body);
-
-    // window.virusCollected += 1;
-
     this.virusCollectedText.text = `Coronavirus: ${window.virusCollected}`;
-
     this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
-
     this.scene.start('rpg-player');
   }
 
   handleCollectAid(player, aid) {
-    // hide from display
     this.aid.killAndHide(aid);
-
-    // disable from physics world
     this.physics.world.disableBody(aid.body);
-
-    // window.virusCollected += 1;
     window.robotHealth += 3;
-
     this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
   }
 
@@ -690,15 +608,10 @@ class GameContinue_GameContinue extends phaser.Scene {
     /** @type {Phaser.Physics.Arcade.Sprite} */
     const coronovirus = this.virus.get(sprite.x, y, 'virus');
 
-    // set active and visible
     coronovirus.setActive(true);
     coronovirus.setVisible(true);
-
     this.add.existing(coronovirus);
-
     coronovirus.body.setSize(coronovirus.width, coronovirus.height);
-
-    // make sure body is enabed in the physics world
     this.physics.world.enable(coronovirus);
 
     return coronovirus;
@@ -709,15 +622,11 @@ class GameContinue_GameContinue extends phaser.Scene {
     /** @type {Phaser.Physics.Arcade.Sprite} */
     const aid = this.aid.get(sprite.x, y, 'aid');
 
-    // set active and visible
+
     aid.setActive(true);
     aid.setVisible(true);
-
     this.add.existing(aid);
-
     aid.body.setSize(aid.width, aid.height);
-
-    // make sure body is enabed in the physics world
     this.physics.world.enable(aid);
 
     return aid;
@@ -766,11 +675,8 @@ class Start_Start extends phaser.Scene {
     super('start');
   }
 
-  
 
   preload() {
- 
-    
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
@@ -855,11 +761,11 @@ class Start_Start extends phaser.Scene {
       .on('pointerdown', () => this.startGame());
 
     this.add.image(200, 550, 'green-button').setInteractive()
-    .on('pointerdown', () => this.instructions());
+      .on('pointerdown', () => this.instructions());
 
     this.add.image(200, 600, 'blue-button')
-    .setInteractive()
-    .on('pointerdown', () => this.scoreBoard());
+      .setInteractive()
+      .on('pointerdown', () => this.scoreBoard());
 
 
     this.add.text(200, 500, 'Start', {
@@ -908,8 +814,6 @@ class Score {
       authDomain: 'AUTHDOMAIN',
       projectId: 'coronavirus-game-95a5f',
     });
-
-    // Initialize Firebase
     window.db = firebase.firestore(); // eslint-disable-line no-undef
   }
 
@@ -920,11 +824,9 @@ class Score {
       first: name,
       score,
     })
-      .then((docRef) => {
-        // console.log('Document written with ID: ', docRef.id);
+      .then(() => {
       })
-      .catch((error) => {
-        // console.error('Error adding document: ', error);
+      .catch(() => {
       });
   }
 
@@ -933,29 +835,13 @@ class Score {
       .get()
       .then((querySnapshot) => {
         const query = querySnapshot;
-        // console.log(query);
-        // query.forEach((doc) => {
-        //   // doc.data() is never undefined for query doc snapshots
-        // console.log(`${doc.data().first} => ${doc.data().score}`);
-        // });
 
-        return query
+        return query;
       })
-      .catch((error) => { // eslint-disable-line no-undef
-        // console.log('Error getting documents: ', error);
+      .catch(() => {
       });
   }
-
-
 }
-
-
-
-
-
-
-
-
 
 
 /* harmony default export */ var game_Score = (Score);
@@ -1046,7 +932,7 @@ class GameOver_GameOver extends phaser.Scene {
   submitName() {
     this.name = document.getElementById('nameField').value;
     if (this.validateData(this.name.length)) {
-      game_Score.saveUser(this.capitalize(this.name), window.virusCollected);
+      game_Score.saveUser(GameOver_GameOver.capitalize(this.name), window.virusCollected);
       this.scoreBoard();
     } else {
       this.validationLabel.text = 'Invalid input';
@@ -1064,9 +950,9 @@ class GameOver_GameOver extends phaser.Scene {
     return false;
   }
 
-  capitalize(s){
-    if (typeof s !== 'string') return s
-    return s.charAt(0).toUpperCase() + s.slice(1)
+  static capitalize(s) {
+    if (typeof s !== 'string') return s;
+    return s.charAt(0).toUpperCase() + s.slice(1);
   }
 }
 
@@ -1078,7 +964,6 @@ class ScoreBoard_ScoreBoard extends phaser.Scene {
   constructor() {
     super('score-board');
   }
-
 
 
   create() {
@@ -1095,9 +980,6 @@ class ScoreBoard_ScoreBoard extends phaser.Scene {
 
     this.loading = this.add.text(200, 300, 'Loading...', { fontSize: 30, color: 'rgb(0,0,0)' }).setOrigin(0.5);
     this.retrieveScore();
-    // this.displayScore(score);
-
-    // console.log(window.query)
 
 
     this.add.image(200, 550, 'yellow-button')
@@ -1119,18 +1001,12 @@ class ScoreBoard_ScoreBoard extends phaser.Scene {
     this.scene.start('start');
   }
 
-  // displayScore(score) {
-    
-  //   console.log(score);
-    
-
-  // }
 
   async retrieveScore() {
     let position = 1;
-    let space = 0
+    let space = 0;
     const info = await game_Score.readScore();
-    this.loading.text ='';
+    this.loading.text = '';
     info.forEach((doc) => {
       this.add.text(80, 180 + space, `${position}`, { fontSize: 20, color: 'rgb(0,0,0)' });
       this.add.text(170, 180 + space, `${doc.data().first}`, { fontSize: 20, color: 'rgb(0,0,0)' });
@@ -1139,11 +1015,7 @@ class ScoreBoard_ScoreBoard extends phaser.Scene {
       position += 1;
     });
   }
-
-
 }
-
-
 
 // CONCATENATED MODULE: ./src/scenes/RpgPlayer.js
 
@@ -1371,7 +1243,6 @@ class Instructions_Instruction extends phaser.Scene {
     super('instructions');
   }
 
-  
 
   create() {
     this.add.image(200, 320, 'background');
@@ -1392,7 +1263,7 @@ class Instructions_Instruction extends phaser.Scene {
     this.add.text(200, 295, 'Soap, Alcohol, UVLigh.', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
     this.add.text(200, 325, 'Be careful ', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
     this.add.text(200, 345, 'Each virus has different resistance.', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-    
+
     this.add.text(200, 385, 'Controls:', { fontSize: 30, color: 'rgb(0,0,0)' }).setOrigin(0.5);
     this.add.text(200, 410, 'Desktop device: ', { fontSize: 18, color: 'rgb(0,0,0)' }).setOrigin(0.5);
     this.add.text(200, 430, 'Use the arrows keys and cursor ', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
@@ -1451,7 +1322,7 @@ class Instructions_Instruction extends phaser.Scene {
     default: 'arcade',
     arcade: {
       gravity: {
-        y: 160,
+        y: 155,
       },
       debug: false,
     },
@@ -1461,6 +1332,7 @@ class Instructions_Instruction extends phaser.Scene {
 
 
 game_Score.initBase();
+
 
 /***/ })
 /******/ ]);

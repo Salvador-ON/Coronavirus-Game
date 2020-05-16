@@ -6,7 +6,6 @@ export default class Instruction extends Phaser.Scene {
     super('instructions');
   }
 
-  
 
   create() {
     this.add.image(200, 320, 'background');
@@ -27,7 +26,7 @@ export default class Instruction extends Phaser.Scene {
     this.add.text(200, 295, 'Soap, Alcohol, UVLigh.', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
     this.add.text(200, 325, 'Be careful ', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
     this.add.text(200, 345, 'Each virus has different resistance.', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-    
+
     this.add.text(200, 385, 'Controls:', { fontSize: 30, color: 'rgb(0,0,0)' }).setOrigin(0.5);
     this.add.text(200, 410, 'Desktop device: ', { fontSize: 18, color: 'rgb(0,0,0)' }).setOrigin(0.5);
     this.add.text(200, 430, 'Use the arrows keys and cursor ', { fontSize: 15, color: 'rgb(0,0,0)' }).setOrigin(0.5);
