@@ -1,4 +1,5 @@
 import Phaser from '../lib/phaser';
+import Logic from '../game/Logic';
 
 export default class RpgPlayer extends Phaser.Scene {
   constructor() {
@@ -61,9 +62,6 @@ export default class RpgPlayer extends Phaser.Scene {
       .setOrigin(0.5);
   }
 
-  startGame() {
-    this.scene.start('game');
-  }
 
   virusHealthSubs(value) {
     this.virusHealth -= value;
@@ -75,10 +73,10 @@ export default class RpgPlayer extends Phaser.Scene {
 
 
   playerWin(points) {
-    if (this.defeatVirus()) {
+    if (Logic.defeatVirus(this.virusHealth)) {
       this.virusDamageMessage.text = 'You defeated the virus';
       this.RobotDamageMessage.text = '';
-      RpgPlayer.collectVirus();
+      Logic.collectVirus();
       this.virusImage.visible = false;
       this.botImage.x = 200;
       this.ContinueButton = this.add.image(200, 550, 'green-button')
@@ -93,10 +91,6 @@ export default class RpgPlayer extends Phaser.Scene {
       this.virusDamageMessage.text = `You made ${points} points of damage`;
       RpgPlayer.sleep(2000).then(() => { this.virusAttackOp(); });
     }
-  }
-
-  static collectVirus() {
-    window.virusCollected += 1;
   }
 
   soapAttack() {
@@ -142,12 +136,12 @@ export default class RpgPlayer extends Phaser.Scene {
   }
 
   virusAttackOp() {
-    RpgPlayer.robotHealthSubs(this.virusAttack);
+    Logic.robotHealthSubs(this.virusAttack);
     this.playerloose();
   }
 
   playerloose() {
-    if (RpgPlayer.gameOver()) {
+    if (Logic.gameOver()) {
       this.virusDamageMessage.text = 'The virus defeated you';
       this.RobotDamageMessage.text = '';
 
@@ -168,33 +162,11 @@ export default class RpgPlayer extends Phaser.Scene {
     }
   }
 
-  static robotHealthSubs(value) {
-    window.robotHealth -= value;
-
-    if (window.robotHealth < 0) {
-      window.robotHealth = 0;
-    }
-  }
 
   static sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  defeatVirus() {
-    if (this.virusHealth <= 0) {
-      return true;
-    }
-
-    return false;
-  }
-
-  static gameOver() {
-    if (window.robotHealth <= 0) {
-      return true;
-    }
-
-    return false;
-  }
 
   update() {
     const valueVirus = `Virus Health: ${this.virusHealth}`;
