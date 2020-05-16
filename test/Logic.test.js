@@ -24,52 +24,49 @@ test('not capitalize if first char is a number', () => {
 test('expect window.virusCollected to be 1', () => {
   window.virusCollected = 0;
   Logic.collectVirus();
-  expect( window.virusCollected).toBe(1);
+  expect(window.virusCollected).toBe(1);
 });
 
 test('expect window.robotHealth to be 3', () => {
   window.robotHealth = 5;
   Logic.robotHealthSubs(2);
-  expect( window.robotHealth).toBe(3);
+  expect(window.robotHealth).toBe(3);
 });
 
 
 test('expect window.robotHealth to be 0 with negative substraction', () => {
   window.robotHealth = 3;
   Logic.robotHealthSubs(5);
-  expect( window.robotHealth).toBe(0);
+  expect(window.robotHealth).toBe(0);
 });
 
 
 test('expect true if virus health is 0', () => {
   const virusHealth = 0;
-  expect( Logic.defeatVirus(virusHealth)).toBe(true);
+  expect(Logic.defeatVirus(virusHealth)).toBe(true);
 });
 
 test('expect false if virus health is 5', () => {
   const virusHealth = 5;
-  expect( Logic.defeatVirus(virusHealth)).toBe(false);
+  expect(Logic.defeatVirus(virusHealth)).toBe(false);
 });
 
 test('expect gameOver true if window.robotHealth is 0', () => {
   window.robotHealth = 0;
   Logic.gameOver();
-  expect( Logic.gameOver()).toBe(true);
+  expect(Logic.gameOver()).toBe(true);
 });
 
 
 test('expect gameOver false if window.robotHealth is 5', () => {
   window.robotHealth = 5;
   Logic.gameOver();
-  expect( Logic.gameOver()).toBe(false);
+  expect(Logic.gameOver()).toBe(false);
 });
 
 
 test('expect window.robotHealth to be 6 with sumRobotHealth', () => {
   window.robotHealth = 3;
   Logic.sumRobotHealth();
-  expect( window.robotHealth).toBe(6);
+  expect(window.robotHealth).toBe(6);
 });
-
-
-
