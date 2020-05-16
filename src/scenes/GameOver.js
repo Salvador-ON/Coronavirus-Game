@@ -90,9 +90,4 @@ export default class GameOver extends Phaser.Scene {
       this.validationLabel.text = 'Invalid input';
     }
   }
-
-
-  
-
-  
 }

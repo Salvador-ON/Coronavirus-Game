@@ -131,7 +131,6 @@ class Aid_Aid extends phaser.Physics.Arcade.Sprite {
 
 // CONCATENATED MODULE: ./src/game/Logic.js
 class Logic {
-
   static validateData(name) {
     const nameLength = name;
     if (nameLength >= 3 && nameLength < 10) {
@@ -173,11 +172,11 @@ class Logic {
     return false;
   }
 
-  static sumRobotHealth(){
-    window.robotHealth += 3
+  static sumRobotHealth() {
+    window.robotHealth += 3;
   }
-
 }
+
 // CONCATENATED MODULE: ./src/scenes/Game.js
 
 
@@ -991,11 +990,6 @@ class GameOver_GameOver extends phaser.Scene {
       this.validationLabel.text = 'Invalid input';
     }
   }
-
-
-  
-
-  
 }
 
 // CONCATENATED MODULE: ./src/scenes/ScoreBoard.js

@@ -4,7 +4,7 @@ import Virus from '../game/Virus';
 
 import Aid from '../game/Aid';
 
-import Logic from '../game/Logic.js';
+import Logic from '../game/Logic';
 
 export default class Game extends Phaser.Scene {
   init() {

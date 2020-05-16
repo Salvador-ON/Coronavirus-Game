@@ -1,5 +1,4 @@
 export default class Logic {
-
   static validateData(name) {
     const nameLength = name;
     if (nameLength >= 3 && nameLength < 10) {
@@ -41,8 +40,7 @@ export default class Logic {
     return false;
   }
 
-  static sumRobotHealth(){
-    window.robotHealth += 3
+  static sumRobotHealth() {
+    window.robotHealth += 3;
   }
-
 }
