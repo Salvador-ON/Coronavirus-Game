@@ -1,3 +1,6 @@
+import * as firebase from "firebase/app";
+import "firebase/firestore";
+
 class Score {
   static initBase() {
     firebase.initializeApp({ // eslint-disable-line no-undef
