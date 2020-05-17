@@ -70,3 +70,6 @@ test('expect window.robotHealth to be 6 with sumRobotHealth', () => {
   Logic.sumRobotHealth();
   expect(window.robotHealth).toBe(6);
 });
+
+
+
