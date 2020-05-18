@@ -1,5 +1,5 @@
-import * as firebase from "firebase/app";
-import "firebase/firestore";
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 
 class Score {
   static initBase() {
@@ -19,7 +19,7 @@ class Score {
       score,
     })
       .then(() => {
-        const data = `data submited: ${playerName}-${playerScore}`
+        const data = `data submited: ${playerName}-${playerScore}`;
         return data;
       })
       .catch(() => {
@@ -37,8 +37,6 @@ class Score {
       .catch(() => {
       });
   }
-
-  
 }
 
 

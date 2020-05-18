@@ -48,16 +48,16 @@ export default class ScoreBoard extends Phaser.Scene {
     const data = await Score.readScore();
 
     if (data.empty) {
-      this.loading.text = 'Data is not available'
+      this.loading.text = 'Data is not available';
     } else {
-      this.displayData(data)
+      this.displayData(data);
     }
   }
 
 
   displayData(info) {
     let position = 1;
-    let space = 0
+    let space = 0;
     this.loading.text = '';
     info.forEach((doc) => {
       this.add.text(85, 191 + space, `${position}`, { fontSize: 20, color: 'rgb(0,0,0)' }).setOrigin(0.5);
@@ -67,6 +67,4 @@ export default class ScoreBoard extends Phaser.Scene {
       position += 1;
     });
   }
-
-
 }

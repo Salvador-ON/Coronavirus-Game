@@ -19,45 +19,34 @@ mockFirebase({
   },
 });
 
+const firebase = require('firebase');
+// eslint-disable-line global-require
+window.db = firebase.firestore();
 
-test('retrieve data in order first element should be Lisa', async() => {
-  const firebase = require('firebase');
-  window.db = firebase.firestore();
 
+test('retrieve data in order first element should be Lisa', async () => {
   const data = await Score.readScore();
   expect(data.docs[0].data().first).toBe('Lisa');
 });
 
-test('retrieve data in order first element should be 5', async() => {
-  const firebase = require('firebase'); 
-  window.db = firebase.firestore();
-
+test('retrieve data in order first element should be 5', async () => {
   const data = await Score.readScore();
   expect(data.docs[0].data().score).toBe(11);
 });
 
 
-test('retrieve data in order last element should be Homer', async() => {
-  const firebase = require('firebase');
-  window.db = firebase.firestore();
-
+test('retrieve data in order last element should be Homer', async () => {
   const data = await Score.readScore();
   expect(data.docs[9].data().first).toBe('Homer');
 });
 
-test('retrieve data in order last element should be 2', async() => {
-  const firebase = require('firebase');
-  window.db = firebase.firestore();
-
+test('retrieve data in order last element should be 2', async () => {
   const data = await Score.readScore();
   expect(data.docs[9].data().score).toBe(2);
 });
 
 
-test('retrive 10 scores data', async() => {
-  const firebase = require('firebase');
-  window.db = firebase.firestore();
-
+test('retrive 10 scores data', async () => {
   const data = await Score.readScore();
   expect(Object.keys(data.docs).length).toBe(10);
 });

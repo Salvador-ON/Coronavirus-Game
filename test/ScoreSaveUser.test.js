@@ -13,19 +13,17 @@ mockFirebase({
   },
 });
 
+const firebase = require('firebase');
+// eslint-disable-line global-require
+window.db = firebase.firestore();
 
-test('submit score Harry-1', async() => {
-  const firebase = require('firebase');
-  window.db = firebase.firestore();
-  
+
+test('submit score Harry-1', async () => {
   const data = await Score.saveUser('Harry', 1);
   expect(data).toBe('data submited: Harry-1');
 });
 
-test('submit score Peter-2', async() => {
-  const firebase = require('firebase');
-  window.db = firebase.firestore();
-  
+test('submit score Peter-2', async () => {
   const data = await Score.saveUser('Peter', 2);
   expect(data).not.toBe('data submited: Harry-1');
 });
