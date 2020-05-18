@@ -154,27 +154,27 @@ Development of an RPG game as apart of my Microverse Capstone Project to show al
 
 ### 2. Objectives:
 
-[x]Design of the turn-based RPG game dynamic.
-[x]Research and Development of all the media content that is going to be used on the game
-[x]Development of the turn-based RPG game.
-[x]Development of a backend database to storage the scores games using Firestore.
-[]Development of multilingual game.
+-[x]Design of the turn-based RPG game dynamic.
+-[x]Research and Development of all the media content that is going to be used on the game
+-[x]Development of the turn-based RPG game.
+-[x]Development of a backend database to storage the scores games using Firestore.
+-[]Development of multilingual game.
 
 ### 3. Approach:
 
--The project is going to be divided in 5 stages. to secure the success of the projects.
+* The project is going to be divided in 5 stages. to secure the success of the projects.
 
--The first two days are going to be used to get familiar with Phaser 3 framework. and Design content
+* The first two days are going to be used to get familiar with Phaser 3 framework. and Design content
 
--The third day is going to be used to develop the basic game play with the different scenes (Start, Navigation, RPG Fight, Scoreboard, GameOver)
+* The third day is going to be used to develop the basic game play with the different scenes (Start, Navigation, RPG Fight, Scoreboard, GameOver)
 
--The fourth day is going to be used to develop the firestore database to save the scores and display the scoreboard. And make the integration with the game.
+* The fourth day is going to be used to develop the firestore database to save the scores and display the scoreboard. And make the integration with the game.
 
--The fifth day is going to be used to develop the unit test using Jest to test all the logic of the game.
+* The fifth day is going to be used to develop the unit test using Jest to test all the logic of the game.
 
 ### 4. Timeframe & Milestones:
--Day 1: Research and learning about Phaser 3.
--Day 2: Game Design, Creation and Download of all the media content.
--Day 3: Game Development: Functional game-play
--Day 4: Development and integration of the Firestore database.
--Day 5: Development of unit test using jest.
+* Day 1: Research and learning about Phaser 3.
+* Day 2: Game Design, Creation and Download of all the media content.
+* Day 3: Game Development: Functional game-play
+* Day 4: Development and integration of the Firestore database.
+* Day 5: Development of unit test using jest.
