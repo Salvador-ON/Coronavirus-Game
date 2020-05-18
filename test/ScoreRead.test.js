@@ -1,6 +1,6 @@
 import Score from '../src/game/Score';
 
-const { mockFirebase } = require('firestore-jest-mock');
+const { mockFirebase } = require('firestore-jest-mock'); // eslint-disable-line import/no-unresolved
 
 mockFirebase({
   database: {
