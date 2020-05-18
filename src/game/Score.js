@@ -1,3 +1,6 @@
+import * as firebase from 'firebase/app';// eslint-disable-line import/no-unresolved
+import 'firebase/firestore'; // eslint-disable-line import/no-unresolved
+
 class Score {
   static initBase() {
     firebase.initializeApp({ // eslint-disable-line no-undef
@@ -11,11 +14,13 @@ class Score {
   static saveUser(playerName, playerScore) {
     const name = playerName;
     const score = playerScore;
-    window.db.collection('users').add({
+    return window.db.collection('users').add({
       first: name,
       score,
     })
       .then(() => {
+        const data = `data submited: ${playerName}-${playerScore}`;
+        return data;
       })
       .catch(() => {
       });

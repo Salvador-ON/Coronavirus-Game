@@ -4,6 +4,8 @@ import Virus from '../game/Virus';
 
 import Aid from '../game/Aid';
 
+import Logic from '../game/Logic';
+
 export default class GameContinue extends Phaser.Scene {
   init() {
     this.left = 0;
@@ -194,7 +196,7 @@ export default class GameContinue extends Phaser.Scene {
   handleCollectAid(player, aid) {
     this.aid.killAndHide(aid);
     this.physics.world.disableBody(aid.body);
-    window.robotHealth += 3;
+    Logic.sumRobotHealth();
     this.robotHeadText.text = `Robot Health: ${window.robotHealth}`;
   }
 

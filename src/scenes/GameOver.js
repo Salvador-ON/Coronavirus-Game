@@ -1,5 +1,6 @@
 import Phaser from '../lib/phaser';
 import Score from '../game/Score';
+import Logic from '../game/Logic';
 
 export default class GameOver extends Phaser.Scene {
   constructor() {
@@ -82,27 +83,11 @@ export default class GameOver extends Phaser.Scene {
 
   submitName() {
     this.name = document.getElementById('nameField').value;
-    if (this.validateData(this.name.length)) {
-      Score.saveUser(GameOver.capitalize(this.name), window.virusCollected);
+    if (Logic.validateData(this.name.length)) {
+      Score.saveUser(Logic.capitalize(this.name), window.virusCollected);
       this.scoreBoard();
     } else {
       this.validationLabel.text = 'Invalid input';
     }
-  }
-
-
-  validateData(name) {
-    this.nameLength = name;
-    if (this.nameLength >= 3 && this.nameLength < 10) {
-      return true;
-    }
-
-
-    return false;
-  }
-
-  static capitalize(s) {
-    if (typeof s !== 'string') return s;
-    return s.charAt(0).toUpperCase() + s.slice(1);
   }
 }
