@@ -154,11 +154,11 @@ Development of an RPG game as apart of my Microverse Capstone Project to show al
 
 ### 2. Objectives:
 
-- [x]Design of the turn-based RPG game dynamic.
-- [x]Research and Development of all the media content that is going to be used on the game
-- [x]Development of the turn-based RPG game.
-- [x]Development of a backend database to storage the scores games using Firestore.
-- []Development of multilingual game.
+- [x] Design of the turn-based RPG game dynamic.
+- [x] Research and Development of all the media content that is going to be used on the game
+- [x] Development of the turn-based RPG game.
+- [x] Development of a backend database to storage the scores games using Firestore.
+- [ ] Development of multilingual game.
 
 ### 3. Approach:
 
