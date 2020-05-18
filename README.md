@@ -8,6 +8,7 @@
 * [The Game](#the-game)
   * [How to Play](#how-to-play)
   * [Instalation](#instalation)
+  * [Testing](#testing)
   * [Characters](#characters)
   * [Scenes](#scenes)
 * [Tecnologies used](#tecnologies-used)
@@ -56,7 +57,7 @@ You can always use the [live version](https://defeat-the-coronavirus.netlify.app
 
 #### Clone my repository
 
-`$ https://github.com/Salvador-ON/Coronavirus-Game.git`
+`$ git clone https://github.com/Salvador-ON/Coronavirus-Game.git`
 
 #### Go to my project's folder
 
@@ -67,7 +68,7 @@ You can always use the [live version](https://defeat-the-coronavirus.netlify.app
 `$ npm install`
 
 #### Start the server and the fun
-`$ npm run dev`
+`$ npm run start`
 
 <!-- CHARACTERS -->
 ### Characters
@@ -81,6 +82,35 @@ Each virus has a different damage attack and different resistance to Soap, Alcoh
 
 * First Aid Kit:  <div ><img src="dist/assets/aid-pack.png"></div>
 It will appear randomly after some platforms that you jump. Each first aid kit that you collect, give you 3 extra points of health.
+
+<!-- testing -->
+### Testing
+
+The unit test includes testing on the retrieve firestore query to retireve the data and to submit the data.
+
+Before running the test is necesary to modify the next file to remove the firebase-admin.
+
+Go to:
+`node_modules/firestore-jest-mock/mocks/firebase.js`
+
+
+Replace this lines:
+```
+const mockFirebase = (overrides = {}) => {
+  jest.mock('firebase', () => firebaseStub(overrides)) &&
+    jest.mock('firebase-admin', () => firebaseStub(overrides));
+};
+
+```
+with this lines:
+```
+const mockFirebase = (overrides = {}) => {
+  jest.mock('firebase', () => firebaseStub(overrides))
+};
+```
+and the run the test.
+
+`$ npm run test`
 
 <!-- SCENES -->
 ### Scenes
