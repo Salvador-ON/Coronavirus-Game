@@ -28,11 +28,11 @@ export default class GameOver extends Phaser.Scene {
     inputField.placeholder = 'Min 3 & Max 10 Letters';
     document.getElementById('gameCont').appendChild(inputField);
 
-    this.add.image(200, 400, 'green-button')
+    this.add.image(200, 375, 'green-button')
       .setInteractive()
       .on('pointerdown', () => this.submitName());
 
-    this.add.text(200, 400, 'Submit Score', {
+    this.add.text(200, 375, 'Submit Score', {
       fontSize: 26,
       color: 'rgb(0,0,0)',
     })
@@ -60,7 +60,7 @@ export default class GameOver extends Phaser.Scene {
         this.add.text(200, 480, 'New High Score!!!', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
         localStorage.setItem('record', JSON.stringify(window.virusCollected));
       } else {
-        this.add.text(200, 540, 'Try Again', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
+        this.add.text(200, 440, 'Try Again', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
         this.add.text(200, 480, `Your High Score is: ${this.record}`, { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
       }
     } else {
