@@ -102,7 +102,7 @@ const mockFirebase = (overrides = {}) => {
 };
 
 ```
-with this lines:
+With this lines:
 ```
 const mockFirebase = (overrides = {}) => {
   jest.mock('firebase', () => firebaseStub(overrides))
