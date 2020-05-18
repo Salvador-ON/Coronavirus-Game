@@ -28,11 +28,11 @@ export default class GameOver extends Phaser.Scene {
     inputField.placeholder = 'Min 3 & Max 10 Letters';
     document.getElementById('gameCont').appendChild(inputField);
 
-    this.add.image(200, 350, 'green-button')
+    this.add.image(200, 400, 'green-button')
       .setInteractive()
       .on('pointerdown', () => this.submitName());
 
-    this.add.text(200, 350, 'Submit Score', {
+    this.add.text(200, 400, 'Submit Score', {
       fontSize: 26,
       color: 'rgb(0,0,0)',
     })
