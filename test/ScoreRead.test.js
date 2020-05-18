@@ -19,7 +19,7 @@ mockFirebase({
   },
 });
 
-const firebase = require('firebase');
+const firebase = require('firebase'); // eslint-disable-line import/no-unresolved
 // eslint-disable-line global-require
 window.db = firebase.firestore();
 

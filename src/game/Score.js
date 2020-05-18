@@ -1,5 +1,5 @@
-import * as firebase from 'firebase/app';
-import 'firebase/firestore';
+import * as firebase from 'firebase/app';// eslint-disable-line import/no-unresolved
+import 'firebase/firestore'; // eslint-disable-line import/no-unresolved
 
 class Score {
   static initBase() {
