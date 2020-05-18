@@ -1,7 +1,7 @@
 import Score from '../src/game/Score';
 
 const { mockFirebase } = require('firestore-jest-mock');
-// Create a fake firestore with a `users` and `posts` collection
+
 mockFirebase({
   database: {
     users: [
@@ -21,7 +21,7 @@ mockFirebase({
 
 
 test('retrieve data in order first element should be Lisa', async() => {
-  const firebase = require('firebase'); // or import firebase from 'firebase';
+  const firebase = require('firebase');
   window.db = firebase.firestore();
 
   const data = await Score.readScore();
@@ -29,7 +29,7 @@ test('retrieve data in order first element should be Lisa', async() => {
 });
 
 test('retrieve data in order first element should be 5', async() => {
-  const firebase = require('firebase'); // or import firebase from 'firebase';
+  const firebase = require('firebase'); 
   window.db = firebase.firestore();
 
   const data = await Score.readScore();
@@ -38,7 +38,7 @@ test('retrieve data in order first element should be 5', async() => {
 
 
 test('retrieve data in order last element should be Homer', async() => {
-  const firebase = require('firebase'); // or import firebase from 'firebase';
+  const firebase = require('firebase');
   window.db = firebase.firestore();
 
   const data = await Score.readScore();
@@ -46,7 +46,7 @@ test('retrieve data in order last element should be Homer', async() => {
 });
 
 test('retrieve data in order last element should be 2', async() => {
-  const firebase = require('firebase'); // or import firebase from 'firebase';
+  const firebase = require('firebase');
   window.db = firebase.firestore();
 
   const data = await Score.readScore();
@@ -54,43 +54,10 @@ test('retrieve data in order last element should be 2', async() => {
 });
 
 
-test('invalid eleven data score', async() => {
-  const firebase = require('firebase'); // or import firebase from 'firebase';
+test('retrive 10 scores data', async() => {
+  const firebase = require('firebase');
   window.db = firebase.firestore();
 
   const data = await Score.readScore();
   expect(Object.keys(data.docs).length).toBe(10);
 });
-
-
-
-
-
-
-
-
-// function maybeGetUsersInState(state) {
-//   const query = firestore.collection('users');
-
-//   if (state) {
-//     query = query.where('state', '==', state);
-//   }
-
-//   return query.get();
-// }
-
-// test('query with state', async () => {
-//   await maybeGetUsersInState('Homer');
-
-//   // Assert that we call the correct firestore methods
-//   expect(mockCollection).toHaveBeenCalledWith('users');
-//   expect(mockWhere).toHaveBeenCalledWith('name', '==', 'Homer');
-// });
-
-// test('no state', async () => {
-//   await maybeGetUsersInState();
-
-//   // Assert that we call the correct firestore methods
-//   expect(mockCollection).toHaveBeenCalledWith('users');
-//   expect(mockWhere).not.toHaveBeenCalled();
-// });
