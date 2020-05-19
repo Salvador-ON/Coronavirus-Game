@@ -189,6 +189,7 @@ Development of an RPG game as apart of my Microverse Capstone Project to show al
 - [x] Development of the turn-based RPG game.
 - [x] Development of a backend database to storage the scores games using Firestore.
 - [ ] Development of multilingual game.
+- [x] Development of mobile and desktop game.
 
 ### 3. Approach:
 
