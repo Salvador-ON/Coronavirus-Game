@@ -21413,7 +21413,7 @@ class GameOver_GameOver extends phaser.Scene {
     this.add.text(200, 190, `${window.virusCollected} Coronavirus`, { fontSize: 33, color: 'rgb(0,0,0)' }).setOrigin(0.5);
     this.add.text(200, 240, 'Type your name', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
 
-    this.validationLabel = this.add.text(200, 400, '', { fontSize: 15, color: 'rgb(255,0,0)' }).setOrigin(0.5);
+    this.validationLabel = this.add.text(200, 420, '', { fontSize: 15, color: 'rgb(255,0,0)' }).setOrigin(0.5);
 
 
     const inputField = document.createElement('input');
@@ -21461,7 +21461,7 @@ class GameOver_GameOver extends phaser.Scene {
     } else {
       this.add.text(200, 440, 'You Have', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
       this.add.text(200, 480, 'New High Score!!!', { fontSize: 25, color: 'rgb(0,0,0)' }).setOrigin(0.5);
-      localStorage.setItem('record', JSON.stringify(window.score));
+      localStorage.setItem('record', JSON.stringify(window.virusCollected));
     }
   }
 
