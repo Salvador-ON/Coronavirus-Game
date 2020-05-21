@@ -1,0 +1,39 @@
+{
+  "name": "coronavirus-game",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "start:dev": "webpack-dev-server",
+    "build": "webpack",
+    "development": "webpack --env dev",
+    "start": "webpack-dev-server --open",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Salvador-ON/Coronavirus-Game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Salvador-ON/Coronavirus-Game/issues"
+  },
+  "homepage": "https://github.com/Salvador-ON/Coronavirus-Game#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "firestore-jest-mock": "^0.3.0",
+    "jest": "^26.0.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-jest": "^26.0.1",
+    "firebase": "^7.14.4"
+  }
+}
